@@ -13,7 +13,9 @@ module.exports.setup = async function setup() {
     await setupPuppeteer();
 
     const rootPath = process.cwd(); // e.g. /Users/ansgar/projects/project-x
-    const testFiles = await glob(`${rootPath}/**/*.browser.js`);
+    const testFiles = (await glob(`${rootPath}/**/*.browser.js`)).filter(
+        file => file.indexOf('node_modules') === -1
+    );
 
     const config = require(path.join(
         rootPath,
