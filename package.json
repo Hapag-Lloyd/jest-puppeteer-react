@@ -1,0 +1,65 @@
+{
+    "name": "jest-puppeteer-react",
+    "version": "0.0.1",
+    "description":
+        "screenshot tests for your react components in chromium using puppeteer & jest",
+    "main": "src/index.js",
+    "engines": {
+        "node": ">=v8.9"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "precommit": "pretty-quick --staged",
+        "prettier": "prettier --write \"./**/*.js\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elbstack/jest-puppeteer-react.git"
+    },
+    "keywords": [
+        "jest",
+        "react",
+        "components",
+        "puppeteer",
+        "chrome",
+        "screenshot",
+        "test",
+        "testing",
+        "image",
+        "diff"
+    ],
+    "author": "Ansgar Mertens <ansgar@elbstack.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
+    },
+    "homepage": "https://github.com/elbstack/jest-puppeteer-react#readme",
+    "dependencies": {
+        "expect-puppeteer": "^2.3.0",
+        "glob": "^7.1.2",
+        "jest-environment-node": "^22.4.3",
+        "jest-environment-puppeteer": "^2.3.0",
+        "jest-image-snapshot": "^2.4.0",
+        "jest-puppeteer": "^2.3.0",
+        "lodash.merge": "^4.6.1",
+        "webpack": "^3.10.0",
+        "webpack-dev-server": "^2.11.1"
+    },
+    "peerDependencies": {
+        "jest": "^22.1.2",
+        "puppeteer": "^1.0.0",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0"
+    },
+    "devDependencies": {
+        "husky": "^0.14.3",
+        "prettier": "^1.11.1",
+        "pretty-quick": "^1.4.1",
+        "puppeteer": "^1.2.0"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "trailingComma": "es5"
+    }
+}
