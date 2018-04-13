@@ -38,7 +38,7 @@ module.exports.setup = async function setup() {
 
     const compiler = webpack(webpackConfig);
     webpackDevServer = new WebpackDevServer(compiler, { noInfo: true });
-    webpackDevServer.listen(1111); // TODO make port settable via config
+    webpackDevServer.listen(config.port || 1111);
 };
 
 module.exports.teardown = async function teardown() {

@@ -29,7 +29,7 @@
         "diff"
     ],
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
-    "license": "ISC",
+    "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
         "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
     },
