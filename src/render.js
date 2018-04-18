@@ -4,9 +4,10 @@ async function render(reactNode, options) {
     const { currentTestName } = expect.getState();
     const config = global._jest_puppeteer_react_default_config;
     const opts = merge({}, config.renderOptions, options);
+    const host = config.useDocker ? config.dockerHost : 'localhost';
 
     await page.goto(
-        `http://localhost:${config.port}?test=${encodeURIComponent(
+        `http://${host}:${config.port}?test=${encodeURIComponent(
             currentTestName
         )}`
     );

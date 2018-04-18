@@ -1,13 +1,20 @@
 const setupPuppeteer = require('jest-environment-puppeteer/setup');
 const teardownPuppeteer = require('jest-environment-puppeteer/teardown');
+const WS_ENDPOINT_PATH = require('jest-environment-puppeteer/lib/constants')
+    .WS_ENDPOINT_PATH;
 
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const { promisify } = require('util');
 const path = require('path');
+const fs = require('fs');
 const glob = promisify(require('glob'));
+const docker = require('./docker');
 
 let webpackDevServer;
+
+const getConfig = () =>
+    require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
 module.exports.setup = async function setup() {
     await setupPuppeteer();
@@ -17,10 +24,7 @@ module.exports.setup = async function setup() {
         file => file.indexOf('node_modules') === -1
     );
 
-    const config = require(path.join(
-        rootPath,
-        'jest-puppeteer-react.config.js'
-    ));
+    const config = getConfig();
 
     const entryFiles = [
         'babel-polyfill',
@@ -39,11 +43,26 @@ module.exports.setup = async function setup() {
     const webpackConfig = config.generateWebpackConfig(entryFiles, aliasObject);
 
     const compiler = webpack(webpackConfig);
-    webpackDevServer = new WebpackDevServer(compiler, { noInfo: true });
+    webpackDevServer = new WebpackDevServer(compiler, {
+        noInfo: true,
+        disableHostCheck: true,
+    });
     webpackDevServer.listen(config.port || 1111);
+
+    if (config.useDocker) {
+        const ws = await docker.start();
+        fs.writeFileSync(WS_ENDPOINT_PATH, ws);
+        console.log('\nUsing Docker for screenshots');
+    }
 };
 
 module.exports.teardown = async function teardown() {
     webpackDevServer.close();
+
+    const config = getConfig();
+    if (config.useDocker) {
+        await docker.stop();
+    }
+
     await teardownPuppeteer();
 };

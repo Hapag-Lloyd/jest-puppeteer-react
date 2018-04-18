@@ -35,6 +35,7 @@
     },
     "homepage": "https://github.com/elbstack/jest-puppeteer-react#readme",
     "dependencies": {
+        "docker-cli-js": "^2.2.0",
         "expect-puppeteer": "^2.3.0",
         "glob": "^7.1.2",
         "jest-environment-node": "^22.4.3",

@@ -16,6 +16,27 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@types/blue-tape@^0.1.30":
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/@types/blue-tape/-/blue-tape-0.1.31.tgz#67e0aa9062015fc5fc40db5834162723327ad915"
+  dependencies:
+    "@types/node" "*"
+    "@types/tape" "*"
+
+"@types/lodash@^4.14.64", "@types/lodash@^4.14.76":
+  version "4.14.107"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.107.tgz#b2d2ae3958bfb8ff828495cbe12214af9e4d035e"
+
+"@types/node@*":
+  version "9.6.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.5.tgz#ee700810fdf49ac1c399fc5980b7559b3e5a381d"
+
+"@types/tape@*":
+  version "4.2.32"
+  resolved "https://registry.yarnpkg.com/@types/tape/-/tape-4.2.32.tgz#1188330d22c4e822648c344faa070277737982d9"
+  dependencies:
+    "@types/node" "*"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -538,6 +559,14 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+cli-table-2-json@^1.0.8:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/cli-table-2-json/-/cli-table-2-json-1.0.10.tgz#9ba8960256c7032efd10a3f62be3c5e96baf9822"
+  dependencies:
+    "@types/blue-tape" "^0.1.30"
+    "@types/lodash" "^4.14.64"
+    lodash "^4.12.0"
+
 cliui@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-2.1.0.tgz#4b475760ff80264c762c3a1719032e91c7fea0d1"
@@ -660,6 +689,10 @@ cookie@0.3.1:
 copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
+
+core-js@^2.4.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -875,6 +908,24 @@ dns-txt@^2.0.2:
   resolved "https://registry.yarnpkg.com/dns-txt/-/dns-txt-2.0.2.tgz#b91d806f5d27188e4ab3e7d107d881a1cc4642b6"
   dependencies:
     buffer-indexof "^1.0.0"
+
+docker-cli-js@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/docker-cli-js/-/docker-cli-js-2.2.0.tgz#1060971141b8d121e846d9bc27ed52e1a27a9a77"
+  dependencies:
+    "@types/lodash" "^4.14.76"
+    cli-table-2-json "^1.0.8"
+    dockermachine-cli-js "^3.0.2"
+    lodash "^4.12.0"
+    nodeify-ts "^1.0.1"
+
+dockermachine-cli-js@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/dockermachine-cli-js/-/dockermachine-cli-js-3.0.2.tgz#a4dfc166d953524df3df788091b3c922c63b6a8f"
+  dependencies:
+    cli-table-2-json "^1.0.8"
+    core-js "^2.4.0"
+    nodeify-ts "^1.0.1"
 
 domain-browser@^1.1.1:
   version "1.2.0"
@@ -2211,7 +2262,7 @@ lodash.merge@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
 
-lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5:
+lodash@^4.12.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -2507,6 +2558,12 @@ node-pre-gyp@^0.6.39:
     semver "^5.3.0"
     tar "^2.2.1"
     tar-pack "^3.4.0"
+
+nodeify-ts@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/nodeify-ts/-/nodeify-ts-1.0.1.tgz#668484db452a22673b070e797f044581554201a8"
+  dependencies:
+    core-js "^2.4.0"
 
 nopt@^4.0.1:
   version "4.0.1"
