@@ -50,9 +50,13 @@ module.exports.setup = async function setup() {
     webpackDevServer.listen(config.port || 1111);
 
     if (config.useDocker) {
-        const ws = await docker.start();
-        fs.writeFileSync(WS_ENDPOINT_PATH, ws);
-        console.log('\nUsing Docker for screenshots');
+        try {
+            const ws = await docker.start();
+            fs.writeFileSync(WS_ENDPOINT_PATH, ws);
+            console.log('\nStarting Docker for screenshots...');
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 
@@ -60,8 +64,12 @@ module.exports.teardown = async function teardown() {
     webpackDevServer.close();
 
     const config = getConfig();
-    if (config.useDocker) {
-        await docker.stop();
+    try {
+        if (config.useDocker) {
+            await docker.stop();
+        }
+    } catch (e) {
+        console.error(e);
     }
 
     await teardownPuppeteer();
