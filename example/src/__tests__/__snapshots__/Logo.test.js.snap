@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo should render correctly 1`] = `
+<Logo>
+  <div>
+    test
+  </div>
+</Logo>
+`;

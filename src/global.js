@@ -44,7 +44,7 @@ module.exports.setup = async function setup() {
 
     const compiler = webpack(webpackConfig);
     webpackDevServer = new WebpackDevServer(compiler, {
-        noInfo: true,
+        // noInfo: true,
         disableHostCheck: true,
     });
     webpackDevServer.listen(config.port || 1111);
