@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Logo from '../Logo';
+import Button from '../Button';
 
-describe('Logo', () => {
+describe('Button', () => {
     test('should render correctly', () => {
-        const wrapper = mount(<Logo />);
+        const wrapper = mount(<Button label="Button" />);
 
         expect(wrapper).toMatchSnapshot();
     });
