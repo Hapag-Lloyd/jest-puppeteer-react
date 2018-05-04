@@ -24,13 +24,22 @@ const getChromeWebSocket = containerId =>
                 stderr
             );
 
+            const results2 = /DevTools\slistening\son\s(ws:\/\/0\.0\.0\.0:9222\/devtools\/browser\/.*)/m.exec(
+                stdout
+            );
+
             if (results.length < 1) {
-                console.log(stderr);
-                return reject(
-                    new Error(
-                        'could not find DevTools Websocket in startup logs'
-                    )
-                );
+                if (results2.length > 0) {
+                    return resolve(results2[1]);
+                } else {
+                    console.log(stdout);
+                    console.log(stderr);
+                    return reject(
+                        new Error(
+                            'could not find DevTools Websocket in startup logs'
+                        )
+                    );
+                }
             }
 
             resolve(results[1]);
