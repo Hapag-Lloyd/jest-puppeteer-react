@@ -28,8 +28,8 @@ const getChromeWebSocket = containerId =>
                 stdout
             );
 
-            if (results.length < 1) {
-                if (results2.length > 0) {
+            if (!results || results.length < 1) {
+                if (results && results2.length > 0) {
                     return resolve(results2[1]);
                 } else {
                     console.log(stdout);
