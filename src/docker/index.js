@@ -1,4 +1,5 @@
 const dockerCLI = require('docker-cli-js');
+const debug = require('debug')('jest-puppeteer-react');
 const DockerOptions = dockerCLI.Options;
 const Docker = dockerCLI.Docker;
 
@@ -14,6 +15,8 @@ const docker = new Docker(options);
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
         // we have to do this because the logs end up on stderr (which docker-cli-js ignores)
+        debug('getting Chrome DevTools WebSocket from docker logs');
+
         exec(`docker logs ${containerId}`, (err, stdout, stderr) => {
             if (err) {
                 return reject(err);
@@ -30,6 +33,7 @@ const getChromeWebSocket = containerId =>
 
             if (!results || results.length < 1) {
                 if (results && results2.length > 0) {
+                    debug('found devtools link on stdout: ' + results2[1]);
                     return resolve(results2[1]);
                 } else {
                     console.log(stdout);
@@ -42,6 +46,7 @@ const getChromeWebSocket = containerId =>
                 }
             }
 
+            debug('found devtools link on stderr: ' + results[1]);
             resolve(results[1]);
         });
     });
@@ -50,27 +55,29 @@ const getChromeWebSocket = containerId =>
  * @returns {Promise<*>} resolves to the websocket url of the started chrome instance
  */
 async function start() {
-    // console.log('docker build');
+    debug('docker build');
     const data = await docker.command('build -t jest-puppeteer-react .');
-    // console.log(data);
+    debug('docker build result:', data);
 
-    // console.log('docker run');
+    debug('docker run');
     const data2 = await docker.command(
         'run -p 9222:9222 -d jest-puppeteer-react'
     );
-    // console.log(data2);
+    debug('docker run result:', data2);
 
     // wait 5 seconds to make sure the logs are available
+    debug('waiting 5 seconds for logs');
     await new Promise(resolve => setTimeout(resolve), 5000);
 
     const ws = await getChromeWebSocket(data2.containerId);
 
-    // console.log(`Found Websocket: ${ws}`);
+    debug(`Found Websocket: ${ws}`);
 
     return ws;
 }
 
 async function stop() {
+    debug('stopping any running docker containers');
     // check if running
     const { containerList } = await docker.command('ps');
 
@@ -84,10 +91,13 @@ async function stop() {
             const containerId = ours[i]['container id'];
 
             const result = await docker.command(`stop ${containerId}`);
-            // console.log(result);
+            debug(
+                'stopped container with id ' + containerId + ' result:',
+                result
+            );
         }
     } else {
-        // console.log('no containers to stop');
+        debug('no containers to stop');
     }
 }
 

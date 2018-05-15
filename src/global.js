@@ -3,6 +3,7 @@ const teardownPuppeteer = require('jest-environment-puppeteer/teardown');
 const WS_ENDPOINT_PATH = require('jest-environment-puppeteer/lib/constants')
     .WS_ENDPOINT_PATH;
 
+const debug = require('debug')('jest-puppeteer-react');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const { promisify } = require('util');
@@ -17,6 +18,7 @@ const getConfig = () =>
     require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
 module.exports.setup = async function setup() {
+    debug('setup jest-puppeteer');
     await setupPuppeteer();
 
     const rootPath = process.cwd(); // e.g. /Users/ansgar/projects/project-x
@@ -47,12 +49,17 @@ module.exports.setup = async function setup() {
         noInfo: true,
         disableHostCheck: true,
     });
-    webpackDevServer.listen(config.port || 1111);
+    const port = config.port || 1111;
+    debug('starting webpack-dev-server on port ' + port);
+    webpackDevServer.listen(port);
 
     if (config.useDocker) {
         try {
+            debug('calling docker.start()');
             const ws = await docker.start();
+            debug('websocket is ' + ws);
             fs.writeFileSync(WS_ENDPOINT_PATH, ws);
+            debug('wrote websocket to file ' + WS_ENDPOINT_PATH);
             console.log('\nStarting Docker for screenshots...');
         } catch (e) {
             console.error(e);
@@ -61,16 +68,19 @@ module.exports.setup = async function setup() {
 };
 
 module.exports.teardown = async function teardown() {
+    debug('stopping webpack-dev-server');
     webpackDevServer.close();
 
     const config = getConfig();
     try {
         if (config.useDocker) {
+            debug('stopping docker');
             await docker.stop();
         }
     } catch (e) {
         console.error(e);
     }
 
+    debug('teardown jest-puppeteer');
     await teardownPuppeteer();
 };
