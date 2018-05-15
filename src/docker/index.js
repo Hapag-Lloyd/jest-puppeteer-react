@@ -60,6 +60,9 @@ async function start() {
     );
     // console.log(data2);
 
+    // wait 5 seconds to make sure the logs are available
+    await new Promise(resolve => setTimeout(resolve), 5000);
+
     const ws = await getChromeWebSocket(data2.containerId);
 
     // console.log(`Found Websocket: ${ws}`);
