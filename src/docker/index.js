@@ -78,7 +78,7 @@ async function stop() {
     const { containerList } = await docker.command('ps');
 
     const ours = containerList.filter(
-        ({ image }) => image === 'jest-puppeteer-react'
+        ({ image }) => image === 'amrtns/jest-puppeteer-react'
     );
 
     if (ours.length > 0) {
