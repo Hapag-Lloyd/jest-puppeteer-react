@@ -55,13 +55,9 @@ const getChromeWebSocket = containerId =>
  * @returns {Promise<*>} resolves to the websocket url of the started chrome instance
  */
 async function start() {
-    debug('docker build');
-    const data = await docker.command('build -t jest-puppeteer-react .');
-    debug('docker build result:', data);
-
     debug('docker run');
     const data2 = await docker.command(
-        'run -p 9222:9222 -d jest-puppeteer-react'
+        'run -p 9222:9222 -d amrtns/jest-puppeteer-react'
     );
     debug('docker run result:', data2);
 
