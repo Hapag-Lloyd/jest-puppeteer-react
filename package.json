@@ -1,8 +1,7 @@
 {
     "name": "jest-puppeteer-react",
     "version": "0.0.1",
-    "description":
-        "screenshot tests for your react components in chromium using puppeteer & jest",
+    "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "engines": {
         "node": ">=v8.9"
@@ -29,7 +28,9 @@
         "diff"
     ],
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
-    "contributors": ["Stefan Schult <stefan@elbstack.com"],
+    "contributors": [
+        "Stefan Schult <stefan@elbstack.com"
+    ],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
         "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
@@ -51,7 +52,7 @@
         "webpack-dev-server": "^2.11.1"
     },
     "peerDependencies": {
-        "jest": "^22.1.2",
+        "jest": "^23.2.0",
         "puppeteer": "^1.0.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0"

@@ -12,6 +12,7 @@ module.exports = {
     ) {
         return {
             entry: { test: entryFiles },
+            devtool: 'eval-source-map',
             output: {
                 path: path.resolve(__dirname, 'build'),
                 filename: '[name].js',

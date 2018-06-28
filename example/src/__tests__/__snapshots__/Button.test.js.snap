@@ -9,3 +9,73 @@ exports[`Button should render correctly 1`] = `
   </button>
 </Button>
 `;
+
+exports[`Button test each row 1 1`] = `"row 1"`;
+
+exports[`Button test each row 2 1`] = `"row 2"`;
+
+exports[`Button test each row 3 1`] = `"row 3"`;
+
+exports[`Button witch each describe  1 !! should render correctly 1`] = `
+<Button
+  label="Button 1"
+>
+  <button>
+    Button 1
+  </button>
+</Button>
+`;
+
+exports[`Button witch each describe  1 !! test each row 1 1`] = `"row 1 1"`;
+
+exports[`Button witch each describe  1 !! test each row 2 1`] = `"row 2 1"`;
+
+exports[`Button witch each describe  1 !! test each row 3 1`] = `"row 3 1"`;
+
+exports[`Button witch each describe  2 !! should render correctly 1`] = `
+<Button
+  label="Button 2"
+>
+  <button>
+    Button 2
+  </button>
+</Button>
+`;
+
+exports[`Button witch each describe  2 !! test each row 1 1`] = `"row 1 2"`;
+
+exports[`Button witch each describe  2 !! test each row 2 1`] = `"row 2 2"`;
+
+exports[`Button witch each describe  2 !! test each row 3 1`] = `"row 3 2"`;
+
+exports[`Button witch each describe  3 !! should render correctly 1`] = `
+<Button
+  label="Button 3"
+>
+  <button>
+    Button 3
+  </button>
+</Button>
+`;
+
+exports[`Button witch each describe  3 !! test each row 1 1`] = `"row 1 3"`;
+
+exports[`Button witch each describe  3 !! test each row 2 1`] = `"row 2 3"`;
+
+exports[`Button witch each describe  3 !! test each row 3 1`] = `"row 3 3"`;
+
+exports[`Button with describe should render correctly 1`] = `
+<Button
+  label="Button"
+>
+  <button>
+    Button
+  </button>
+</Button>
+`;
+
+exports[`Button with describe test each row 1 1`] = `"row 1"`;
+
+exports[`Button with describe test each row 2 1`] = `"row 2"`;
+
+exports[`Button with describe test each row 3 1`] = `"row 3"`;
