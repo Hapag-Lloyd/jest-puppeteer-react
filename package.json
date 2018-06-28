@@ -8,7 +8,7 @@
         "node": ">=v8.9"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
         "prettier": "prettier --write \"./**/*.js\""
     },
@@ -29,6 +29,7 @@
         "diff"
     ],
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
+    "contributors": ["Stefan Schult <stefan@elbstack.com"],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
         "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
@@ -37,12 +38,15 @@
     "dependencies": {
         "docker-cli-js": "^2.2.0",
         "expect-puppeteer": "^2.3.0",
+        "format-util": "^1.0.3",
         "glob": "^7.1.2",
+        "jest-each": "^23.2.0",
         "jest-environment-node": "^22.4.3",
         "jest-environment-puppeteer": "^2.3.0",
         "jest-image-snapshot": "^2.4.0",
         "jest-puppeteer": "^2.3.0",
         "lodash.merge": "^4.6.1",
+        "pretty-format": "^23.2.0",
         "webpack": "^3.10.0",
         "webpack-dev-server": "^2.11.1"
     },
