@@ -11,6 +11,7 @@ module.exports = {
         aliasObject
     ) {
         return {
+            mode: 'development',
             entry: { test: entryFiles },
             devtool: 'eval-source-map',
             output: {

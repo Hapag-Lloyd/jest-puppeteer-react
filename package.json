@@ -55,9 +55,11 @@
     },
     "peerDependencies": {
         "jest": "^23.2.0",
+        "html-webpack-plugin": "^3.2.0",
         "puppeteer": "^1.0.0",
         "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "react-dom": "^16.2.0",
+        "webpack": "^4.12.2"
     },
     "devDependencies": {
         "babel-polyfill": "^6.26.0",
