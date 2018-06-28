@@ -97,7 +97,7 @@ const each = cb => (...args) => {
 
 window.describe = (name, fun) => {
     window.__path.push(name);
-    console.log('describe', window.__path);
+    // console.log('describe', window.__path);
     fun();
     window.__path.pop();
 };
@@ -107,7 +107,7 @@ window.describe.skip = () => {};
 
 window.test = (name, fun) => {
     window.__path.push(name);
-    console.log('test', window.__path);
+    // console.log('test', window.__path);
     fun();
     window.__path.pop();
 };

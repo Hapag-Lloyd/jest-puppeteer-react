@@ -1,6 +1,6 @@
 {
     "name": "jest-puppeteer-react",
-    "version": "0.0.1",
+    "version": "1.1.0",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "engines": {
@@ -38,6 +38,7 @@
     },
     "homepage": "https://github.com/elbstack/jest-puppeteer-react#readme",
     "dependencies": {
+        "debug": "^3.1.0",
         "docker-cli-js": "^2.2.0",
         "expect-puppeteer": "^2.3.0",
         "format-util": "^1.0.3",
@@ -49,8 +50,8 @@
         "jest-puppeteer": "^2.3.0",
         "lodash.merge": "^4.6.1",
         "pretty-format": "^23.2.0",
-        "webpack": "^3.10.0",
-        "webpack-dev-server": "^2.11.1"
+        "webpack": "^4.8.3",
+        "webpack-dev-server": "^3.1.4"
     },
     "peerDependencies": {
         "jest": "^23.2.0",
