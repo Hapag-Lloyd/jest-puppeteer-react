@@ -9,7 +9,8 @@
     "scripts": {
         "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
-        "prettier": "prettier --write \"./**/*.js\""
+        "prettier": "prettier --write \"./**/*.js\"",
+        "serve": "cd example && node -e \"require(__dirname + '/../globalSetup.js')()\""
     },
     "repository": {
         "type": "git",
