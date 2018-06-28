@@ -10,7 +10,7 @@
         "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
         "prettier": "prettier --write \"./**/*.js\"",
-        "serve": "cd example && node -e \"require(__dirname + '/../globalSetup.js')()\""
+        "serve": "cd example && node -e \"require(__dirname + '/../globalSetup.js')({noInfo: false})\""
     },
     "repository": {
         "type": "git",
