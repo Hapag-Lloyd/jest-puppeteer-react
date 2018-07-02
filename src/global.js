@@ -17,7 +17,7 @@ let webpackDevServer;
 const getConfig = () =>
     require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
-module.exports.setup = async function setup() {
+module.exports.setup = async function setup({ noInfo } = { noInfo: true }) {
     debug('setup jest-puppeteer');
     await setupPuppeteer();
 
@@ -46,7 +46,7 @@ module.exports.setup = async function setup() {
 
     const compiler = webpack(webpackConfig);
     webpackDevServer = new WebpackDevServer(compiler, {
-        noInfo: true,
+        noInfo,
         disableHostCheck: true,
     });
     const port = config.port || 1111;

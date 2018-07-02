@@ -1,16 +1,16 @@
 {
     "name": "jest-puppeteer-react",
     "version": "1.1.0",
-    "description":
-        "screenshot tests for your react components in chromium using puppeteer & jest",
+    "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "engines": {
         "node": ">=v8.9"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
-        "prettier": "prettier --write \"./**/*.js\""
+        "prettier": "prettier --write \"./**/*.js\"",
+        "serve": "cd example && node -e \"require(__dirname + '/../globalSetup.js')({noInfo: false})\""
     },
     "repository": {
         "type": "git",
@@ -29,6 +29,9 @@
         "diff"
     ],
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
+    "contributors": [
+        "Stefan Schult <stefan@elbstack.com"
+    ],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
         "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
@@ -38,26 +41,34 @@
         "debug": "^3.1.0",
         "docker-cli-js": "^2.2.0",
         "expect-puppeteer": "^2.3.0",
+        "format-util": "^1.0.3",
         "glob": "^7.1.2",
+        "jest-each": "^23.2.0",
         "jest-environment-node": "^22.4.3",
         "jest-environment-puppeteer": "^2.3.0",
         "jest-image-snapshot": "^2.4.0",
         "jest-puppeteer": "^2.3.0",
         "lodash.merge": "^4.6.1",
+        "pretty-format": "^23.2.0",
         "webpack": "^4.8.3",
         "webpack-dev-server": "^3.1.4"
     },
     "peerDependencies": {
-        "jest": "^22.1.2",
+        "jest": "^23.2.0",
+        "html-webpack-plugin": "^3.2.0",
         "puppeteer": "^1.0.0",
         "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "react-dom": "^16.2.0",
+        "webpack": "^4.12.2"
     },
     "devDependencies": {
+        "babel-polyfill": "^6.26.0",
         "husky": "^0.14.3",
         "prettier": "^1.11.1",
         "pretty-quick": "^1.4.1",
-        "puppeteer": "^1.2.0"
+        "puppeteer": "^1.2.0",
+        "react": "^16.3.2",
+        "react-dom": "^16.3.2"
     },
     "prettier": {
         "tabWidth": 4,
