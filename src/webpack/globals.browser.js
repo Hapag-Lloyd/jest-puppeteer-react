@@ -1,6 +1,8 @@
 import { format } from 'util';
 import pretty from 'pretty-format';
 
+// some snippet of the code inspired/copied by https://github.com/facebook/jest/blob/master/packages/jest-each/src/bind.js
+
 if (!window.Proxy)
     throw new Error('The environment needs to support window.Proxy!');
 
