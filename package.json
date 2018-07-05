@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/elbstack/jest-puppeteer-react.git"
+        "url": "git+https://github.com/hapag-lloyd/jest-puppeteer-react.git"
     },
     "keywords": [
         "jest",
@@ -34,9 +34,9 @@
     ],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
-        "url": "https://github.com/elbstack/jest-puppeteer-react/issues"
+        "url": "https://github.com/hapag-lloyd/jest-puppeteer-react/issues"
     },
-    "homepage": "https://github.com/elbstack/jest-puppeteer-react#readme",
+    "homepage": "https://github.com/hapag-lloyd/jest-puppeteer-react#readme",
     "dependencies": {
         "debug": "^3.1.0",
         "docker-cli-js": "^2.2.0",
