@@ -3,6 +3,9 @@
     "version": "1.2.0",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
+    "bin": {
+        "jestPuppeteerReactDebug": "./bin/debug.js"
+    },
     "engines": {
         "node": ">=v8.9"
     },
