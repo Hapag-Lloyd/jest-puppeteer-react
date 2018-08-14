@@ -53,7 +53,7 @@ module.exports.setup = async function setup({ noInfo } = { noInfo: true }) {
     debug('starting webpack-dev-server on port ' + port);
     webpackDevServer.listen(port);
 
-    if (config.useDocker && !noInfo) {
+    if (config.useDocker) {
         try {
             debug('calling docker.start()');
             const ws = await docker.start();
