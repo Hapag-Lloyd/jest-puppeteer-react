@@ -12,13 +12,13 @@ async function render(reactNode, options) {
         currentTestName
     )}`;
 
-    const timeoutConfig = {};
+    const pageConfig = {};
     if (opts.timeout) {
-        timeoutConfig.timeout = opts.timeout;
+        pageConfig.timeout = opts.timeout;
     }
 
     debug('page.goto ' + url);
-    await page.goto(url, timeoutConfig);
+    await page.goto(url, pageConfig);
 
     if (opts.viewport) {
         debug('setting a viewport from options');
