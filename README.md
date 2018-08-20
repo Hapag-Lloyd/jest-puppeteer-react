@@ -71,6 +71,7 @@ The second argument of render takes some options to make things easier. You can 
 
 ```
 {
+    timeout: 60000, // 60 seconds
     viewport: {
         width: 100,
         height: 100,
