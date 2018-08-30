@@ -50,7 +50,7 @@
         "jest-environment-node": "^22.4.3",
         "jest-environment-puppeteer": "^2.3.0",
         "jest-image-snapshot": "^2.4.0",
-        "jest-puppeteer": "^2.3.0",
+        "jest-puppeteer": "^3.3.1",
         "lodash.merge": "^4.6.1",
         "pretty-format": "^23.2.0",
         "webpack": "^4.8.3",
