@@ -20,8 +20,9 @@ if (urlParams.has('test')) {
 } else {
     const wrapper = document.createElement('div');
     wrapper.style.setProperty('display', 'grid');
-    wrapper.style.setProperty('grid-template-columns', '200px auto');
+    wrapper.style.setProperty('grid-template-columns', '300px auto');
     wrapper.style.setProperty('grid-gap', '1em');
+    wrapper.style.setProperty('height', '100vh');
 
     // frame to render the test preview
     const container = document.createElement('div');
@@ -31,9 +32,10 @@ if (urlParams.has('test')) {
     // show a list of all tests, only when search is empty
     const list = document.createElement('ul');
     list.style.setProperty('margin', '0');
-    list.style.setProperty('padding', '0');
+    list.style.setProperty('padding', '20px 0');
     list.style.setProperty('display', 'grid');
     list.style.setProperty('grid-gap', '.32em');
+    list.style.setProperty('overflow-x', 'auto');
 
     Object.keys(__tests)
         .sort((a, b) => a.localeCompare(b))
@@ -67,6 +69,7 @@ if (urlParams.has('test')) {
             }
 
             const item = document.createElement('li');
+            item.style.setProperty('margin', '0 0 5px 10px');
             item.appendChild(a);
             return item;
         })
