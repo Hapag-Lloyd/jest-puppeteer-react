@@ -1,6 +1,6 @@
 {
     "name": "jest-puppeteer-react",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "bin": {
@@ -34,7 +34,8 @@
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
     "contributors": [
         "Stefan Schult <stefan@elbstack.com>",
-        "Albino Tonnina <https://github.com/albinotonnina>"
+        "Albino Tonnina <https://github.com/albinotonnina>",
+        "Timo Koenig <https://github.com/kaiserkoenig>"
     ],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
