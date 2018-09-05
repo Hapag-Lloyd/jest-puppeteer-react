@@ -50,7 +50,7 @@
         "glob": "^7.1.2",
         "jest-each": "^23.2.0",
         "jest-environment-node": "^22.4.3",
-        "jest-environment-puppeteer": "^2.3.0",
+        "jest-environment-puppeteer": "^3.3.1",
         "jest-image-snapshot": "^2.4.0",
         "jest-puppeteer": "^3.3.1",
         "lodash.merge": "^4.6.1",
@@ -59,8 +59,8 @@
         "webpack-dev-server": "^3.1.4"
     },
     "peerDependencies": {
-        "jest": "^23.2.0",
         "html-webpack-plugin": "^3.2.0",
+        "jest": "^23.2.0",
         "puppeteer": "^1.0.0",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",

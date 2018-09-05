@@ -12,6 +12,9 @@ const options = new DockerOptions(
 
 const docker = new Docker(options);
 
+// const DOCKER_IMAGE_NAME = 'amrtns/jest-puppeteer-react';
+const DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react';
+
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
         // we have to do this because on mac the logs end up on stderr (which docker-cli-js ignores)
@@ -62,7 +65,7 @@ async function getRunningContainerIds() {
     debug('getRunningContainerIds', { containerList });
 
     return containerList
-        .filter(({ image }) => image === 'amrtns/jest-puppeteer-react')
+        .filter(({ image }) => image === DOCKER_IMAGE_NAME)
         .map(container => container['container id']);
 }
 
@@ -79,7 +82,7 @@ async function start() {
     } else {
         debug('docker run');
         const data2 = await docker.command(
-            'run -p 9222:9222 -d amrtns/jest-puppeteer-react'
+            `run -p 9222:9222 -d ${DOCKER_IMAGE_NAME}`
         );
         debug('docker run result:', data2);
         containerId = data2.containerId;
