@@ -18,7 +18,7 @@ if (urlParams.has('test')) {
 
     ReactDOM.render(component, document.getElementById('main'));
 } else {
-    const wrapper = document.createElement('div');
+    const wrapper = document.getElementById('main') || document.createElement('div');
     wrapper.style.setProperty('display', 'grid');
     wrapper.style.setProperty('grid-template-columns', '300px auto');
     wrapper.style.setProperty('grid-gap', '1em');
