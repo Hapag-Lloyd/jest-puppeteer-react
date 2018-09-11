@@ -14,6 +14,7 @@ const docker = new Docker(options);
 
 // const DOCKER_IMAGE_NAME = 'amrtns/jest-puppeteer-react';
 const DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react';
+const DOCKER_IMAGE_VERSION = '3.0.0';
 
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
@@ -82,7 +83,7 @@ async function start() {
     } else {
         debug('docker run');
         const data2 = await docker.command(
-            `run -p 9222:9222 -d ${DOCKER_IMAGE_NAME}`
+            `run -p 9222:9222 -d ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}`
         );
         debug('docker run result:', data2);
         containerId = data2.containerId;
