@@ -22,22 +22,18 @@ if (urlParams.has('test')) {
         document.getElementById('main') || document.createElement('div');
     wrapper.style.setProperty('display', 'grid');
     wrapper.style.setProperty('grid-template-columns', '300px auto');
-    wrapper.style.setProperty('grid-gap', '1em');
-    wrapper.style.setProperty('max-height', '100vh');
-    wrapper.style.setProperty('padding', '.75em');
+    wrapper.style.setProperty('grid-gap', '.16em');
+    wrapper.style.setProperty('height', '100vh');
+    wrapper.style.setProperty('background-color', '#808080');
 
     // frame to render the test preview
     const container = document.createElement('div');
     container.style.setProperty('position', 'relative');
     container.style.setProperty('overflow', 'auto');
-
-    // show a list of all tests, only when search is empty
-    const list = document.createElement('ul');
-    list.style.setProperty('margin', '0');
-    list.style.setProperty('padding', '0');
-    list.style.setProperty('display', 'grid');
-    list.style.setProperty('grid-gap', '.32em');
-    list.style.setProperty('overflow-x', 'auto');
+    container.style.setProperty(
+        'background-color',
+        document.body.style.backgroundColor || 'white'
+    );
 
     const applyTest = ({ path, reactNode }, position = 0, result = {}) => {
         const pathEntry = path[position];
@@ -71,6 +67,7 @@ if (urlParams.has('test')) {
         if (!values.__reactNode) {
             details = document.createElement('details');
             details.style.setProperty('padding-left', '1em');
+            details.style.setProperty('margin', '.32em');
             details.open = true;
             const summary = document.createElement('summary');
             summary.style.setProperty('margin-left', '-1em');
@@ -119,6 +116,10 @@ if (urlParams.has('test')) {
         }, {});
 
     const detailsBlock = document.createElement('div');
+    detailsBlock.style.setProperty('overflow', 'auto');
+    detailsBlock.style.setProperty('position', 'relative');
+    detailsBlock.style.setProperty('max-height', '100%');
+    detailsBlock.style.setProperty('background-color', 'white');
     detailsBlockEntries(detailsBlock, tests);
 
     wrapper.appendChild(detailsBlock);
