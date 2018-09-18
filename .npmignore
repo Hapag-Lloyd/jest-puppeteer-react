@@ -1,0 +1,5 @@
+example/
+node_modules/
+.idea/
+yarn-error.log
+__tests__
