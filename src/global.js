@@ -63,6 +63,7 @@ module.exports.setup = async function setup({ noInfo } = { noInfo: true }) {
             console.log('\nStarting Docker for screenshots...');
         } catch (e) {
             console.error(e);
+            throw new Error('Failed to start docker for screenshots');
         }
     }
 };
