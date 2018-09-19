@@ -10,6 +10,7 @@
         "node": ">=v8.9"
     },
     "scripts": {
+        "pretest": "cd example && yarn install",
         "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
         "prettier": "prettier --write \"./**/*.js\"",

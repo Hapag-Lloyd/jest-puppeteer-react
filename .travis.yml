@@ -1,0 +1,11 @@
+sudo: required
+language: node_js
+node_js:
+  - "lts/*"
+services:
+- docker
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - example/node_modules

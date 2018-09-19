@@ -1,9 +1,30 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
-const isCI = process.env.CI === 'true';
+const debug = require('debug')('jest-puppeteer-react');
+const isCI = typeof process.env.CI !== 'undefined';
 const isMac = process.platform === 'darwin';
+
+function getIPAddress() {
+    const interfaces = require('os').networkInterfaces();
+    for (let devName in interfaces) {
+        const iface = interfaces[devName];
+
+        for (let i = 0; i < iface.length; i++) {
+            const alias = iface[i];
+            if (
+                alias.family === 'IPv4' &&
+                alias.address !== '127.0.0.1' &&
+                !alias.internal
+            )
+                return alias.address;
+        }
+    }
+
+    return '0.0.0.0';
+}
+
+debug(`get ip address: ${getIPAddress()}`);
 
 module.exports = {
     generateWebpackConfig: function generateWebpackConfig(
@@ -44,6 +65,10 @@ module.exports = {
     renderOptions: {
         viewport: { deviceScaleFactor: 2 },
     },
-    useDocker: false,
-    dockerHost: isMac ? 'docker.for.mac.host.internal' : '192.168.65.1', // or try common default
+    useDocker: true,
+    dockerHost: isMac
+        ? 'docker.for.mac.host.internal'
+        : isCI
+            ? getIPAddress()
+            : '192.168.65.1', // or try common default
 };
