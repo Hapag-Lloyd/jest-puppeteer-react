@@ -1,4 +1,4 @@
-# jest-puppeteer-react
+# jest-puppeteer-react [![Build Status](https://travis-ci.com/Hapag-Lloyd/jest-puppeteer-react.svg?branch=master)](https://travis-ci.com/Hapag-Lloyd/jest-puppeteer-react)
 
 ```
 yarn add jest-puppeteer-react
