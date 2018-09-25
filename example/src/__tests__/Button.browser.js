@@ -10,7 +10,7 @@ describe('Button', () => {
     jest.setTimeout(60000);
     test('should render correctly', async () => {
         await render(<Button label="Button" />, {
-            viewport: { width: 100, height: 100 },
+            viewport: { width: 200, height: 100 },
         });
 
         const screenshot = await page.screenshot();
