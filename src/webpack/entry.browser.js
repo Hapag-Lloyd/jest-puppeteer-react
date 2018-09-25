@@ -26,6 +26,7 @@ if (urlParams.has('test')) {
     wrapper.style.setProperty('height', '100vh');
     wrapper.style.setProperty('background-color', '#808080');
 
+    const containerWrapper = document.createElement('div');
     // frame to render the test preview
     const container = document.createElement('div');
     container.style.setProperty('position', 'relative');
@@ -35,7 +36,13 @@ if (urlParams.has('test')) {
         document.body.style.backgroundColor || 'white'
     );
 
-    const applyTest = ({ path, reactNode }, position = 0, result = {}) => {
+    containerWrapper.appendChild(container);
+
+    const applyTest = (
+        { path, reactNode, viewport },
+        position = 0,
+        result = {}
+    ) => {
         const pathEntry = path[position];
 
         if (!result[pathEntry] && position < path.length) {
@@ -46,13 +53,28 @@ if (urlParams.has('test')) {
             result[pathEntry] = Object.assign(
                 {},
                 result[pathEntry],
-                applyTest({ path, reactNode }, position + 1, result[pathEntry])
+                applyTest(
+                    { path, reactNode, viewport },
+                    position + 1,
+                    result[pathEntry]
+                )
             );
 
             return result;
         }
 
-        return { __reactNode: reactNode };
+        return {
+            __reactNode: reactNode,
+            viewport,
+            description: path.join(' '),
+        };
+    };
+
+    const updateContainer = (reactNode, viewport, title) => {
+        container.style.setProperty('height', viewport.height + 'px');
+        container.style.setProperty('width', viewport.width + 'px');
+        ReactDOM.render(reactNode, container);
+        document.title = title;
     };
 
     const detailsBlockEntries = (element, values) => {
@@ -75,20 +97,27 @@ if (urlParams.has('test')) {
             details.appendChild(summary);
             detailsBlockEntries(details, values);
         } else {
+            const description = values.description;
             const a = document.createElement('a');
             a.style.setProperty('display', 'block');
             a.style.setProperty('padding', '.1em');
 
             const url = `${document.location.protocol}//${
                 document.location.hostname
-            }:${document.location.port}?testPreview=${encodeURIComponent(key)}`;
+            }:${document.location.port}?testPreview=${encodeURIComponent(
+                description
+            )}`;
 
             a.href = url;
 
             a.onclick = e => {
                 e.stopPropagation();
-                window.history.pushState({}, key, url);
-                ReactDOM.render(values.__reactNode, container);
+                window.history.pushState({}, description, url);
+                updateContainer(
+                    values.__reactNode,
+                    values.viewport,
+                    description
+                );
                 return false;
             };
 
@@ -100,8 +129,12 @@ if (urlParams.has('test')) {
             };
             a.text = key;
 
-            if (key === currentTest) {
-                ReactDOM.render(values.__reactNode, container);
+            if (description === currentTest) {
+                updateContainer(
+                    values.__reactNode,
+                    values.viewport,
+                    description
+                );
             }
             details = a;
         }
@@ -111,8 +144,8 @@ if (urlParams.has('test')) {
     // build an object to easily create a hierarchical structure
     const tests = Object.entries(__tests)
         .map(([, t]) => t)
-        .reduce((acc, { path, reactNode }, i, tests) => {
-            return applyTest({ path, reactNode }, 0, acc);
+        .reduce((acc, { path, reactNode, viewport }, i, tests) => {
+            return applyTest({ path, reactNode, viewport }, 0, acc);
         }, {});
 
     const detailsBlock = document.createElement('div');
@@ -123,6 +156,6 @@ if (urlParams.has('test')) {
     detailsBlockEntries(detailsBlock, tests);
 
     wrapper.appendChild(detailsBlock);
-    wrapper.appendChild(container);
+    wrapper.appendChild(containerWrapper);
     document.body.appendChild(wrapper);
 }
