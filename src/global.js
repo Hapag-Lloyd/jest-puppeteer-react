@@ -31,7 +31,7 @@ module.exports.setup = async function setup(
     const config = getConfig();
 
     const entryFiles = [
-        'babel-polyfill',
+        '@babel/polyfill',
         path.resolve(__dirname, 'webpack/globals.browser.js'),
         ...testFiles,
         path.resolve(__dirname, 'webpack/entry.browser.js'),
