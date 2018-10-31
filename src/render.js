@@ -16,6 +16,9 @@ async function render(reactNode, options) {
     if (opts.timeout) {
         pageConfig.timeout = opts.timeout;
     }
+    if (opts.waitUntil) {
+        pageConfig.waitUntil = opts.waitUntil;
+    }
 
     debug('page.goto ' + url);
     await page.goto(url, pageConfig);
