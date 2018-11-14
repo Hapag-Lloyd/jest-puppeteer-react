@@ -28,9 +28,8 @@ if (urlParams.has('test')) {
 
     const containerWrapper = document.createElement('div');
     // frame to render the test preview
-    const container = document.createElement('div');
-    container.style.setProperty('position', 'relative');
-    container.style.setProperty('overflow', 'auto');
+    const container = document.createElement('iframe');
+    container.style.setProperty('border', 'none');
     container.style.setProperty(
         'background-color',
         document.body.style.backgroundColor || 'white'
@@ -73,8 +72,8 @@ if (urlParams.has('test')) {
     const updateContainer = (reactNode, viewport, title) => {
         container.style.setProperty('height', viewport.height + 'px');
         container.style.setProperty('width', viewport.width + 'px');
-        ReactDOM.render(reactNode, container);
-        document.title = title;
+        container.src = [location.origin, '?test=', title].join('');
+        document.title = 'Preview: ' + title;
     };
 
     const detailsBlockEntries = (element, values) => {
