@@ -12,8 +12,7 @@ const options = new DockerOptions(
 
 const docker = new Docker(options);
 
-// const DOCKER_IMAGE_NAME = 'amrtns/jest-puppeteer-react';
-const DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.0';
+const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.0';
 
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
@@ -59,21 +58,27 @@ const getChromeWebSocket = containerId =>
         );
     });
 
-async function getRunningContainerIds() {
+async function getRunningContainerIds(dockerImageName) {
     const { containerList } = await docker.command('ps');
 
     debug('getRunningContainerIds', { containerList });
 
     return containerList
-        .filter(({ image }) => image === DOCKER_IMAGE_NAME)
+        .filter(({ image }) => image === dockerImageName)
         .map(container => container['container id']);
 }
 
 /**
  * @returns {Promise<*>} resolves to the websocket url of the started chrome instance
  */
-async function start() {
-    const containerIds = await getRunningContainerIds();
+async function start(config) {
+    const dockerImageName = config.dockerImageName || DEFAULT_DOCKER_IMAGE_NAME;
+    const customEntryPoint = config.dockerEntrypoint
+        ? `--entrypoint=${config.dockerEntrypoint}`
+        : '';
+    const customCommand = config.dockerCommand || '';
+
+    const containerIds = await getRunningContainerIds(dockerImageName);
     let containerId = null;
 
     if (containerIds.length > 0) {
@@ -82,7 +87,7 @@ async function start() {
     } else {
         debug('docker run');
         const data2 = await docker.command(
-            `run -p 9222:9222 -d ${DOCKER_IMAGE_NAME}`
+            `run -p 9222:9222 ${customEntryPoint} -d ${dockerImageName} ${customCommand}`
         );
         debug('docker run result:', data2);
         containerId = data2.containerId;
@@ -109,10 +114,11 @@ async function start() {
     return ws;
 }
 
-async function stop() {
+async function stop(config) {
     debug('stopping any running docker containers');
     // check if running
-    const ours = await getRunningContainerIds();
+    const dockerImageName = config.dockerImageName || DEFAULT_DOCKER_IMAGE_NAME;
+    const ours = await getRunningContainerIds(dockerImageName);
 
     if (ours.length > 0) {
         console.log(`Stopping ${ours.length} Docker container(s)`);

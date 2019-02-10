@@ -59,7 +59,7 @@ module.exports.setup = async function setup(
     if (config.useDocker) {
         try {
             debug('calling docker.start()');
-            const ws = await docker.start();
+            const ws = await docker.start(config);
             debug('websocket is ' + ws);
             fs.writeFileSync(WS_ENDPOINT_PATH, ws);
             debug('wrote websocket to file ' + WS_ENDPOINT_PATH);
@@ -79,7 +79,7 @@ module.exports.teardown = async function teardown() {
     try {
         if (config.useDocker) {
             debug('stopping docker');
-            await docker.stop();
+            await docker.stop(config);
         }
     } catch (e) {
         console.error(e);
