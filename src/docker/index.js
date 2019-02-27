@@ -76,6 +76,7 @@ async function start(config) {
     const customEntryPoint = config.dockerEntrypoint
         ? `--entrypoint=${config.dockerEntrypoint}`
         : '';
+    const customRunOptions = config.dockerRunOptions || '';
     const customCommand = config.dockerCommand || '';
 
     const containerIds = await getRunningContainerIds(dockerImageName);
@@ -87,7 +88,7 @@ async function start(config) {
     } else {
         debug('docker run');
         const data2 = await docker.command(
-            `run -p 9222:9222 ${customEntryPoint} -d ${dockerImageName} ${customCommand}`
+            `run -p 9222:9222 ${customEntryPoint} -d ${customRunOptions} ${dockerImageName} ${customCommand}`
         );
         debug('docker run result:', data2);
         containerId = data2.containerId;
