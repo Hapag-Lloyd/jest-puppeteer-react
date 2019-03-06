@@ -5,6 +5,7 @@ const WS_ENDPOINT_PATH = require('jest-environment-puppeteer/lib/constants')
 
 const debug = require('debug')('jest-puppeteer-react');
 const webpack = require('webpack');
+const fetch = require('node-fetch');
 const WebpackDevServer = require('webpack-dev-server');
 const { promisify } = require('util');
 const path = require('path');
@@ -51,10 +52,27 @@ module.exports.setup = async function setup(
     webpackDevServer = new WebpackDevServer(compiler, {
         noInfo,
         disableHostCheck: true,
+        stats: 'minimal',
     });
+
     const port = config.port || 1111;
     debug('starting webpack-dev-server on port ' + port);
     webpackDevServer.listen(port);
+
+    console.log('Waiting for webpack build to succeed');
+    const startTime = Date.now();
+    while (true) {
+        try {
+            await fetch('http://localhost:' + port);
+            break;
+        } catch (e) {
+            console.log(
+                `request timed out, retrying (${Math.round(
+                    (Date.now() - startTime) / 1000
+                )}s)`
+            );
+        }
+    }
 
     if (config.useDocker) {
         try {
