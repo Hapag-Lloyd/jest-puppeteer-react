@@ -116,3 +116,5 @@ window.test = (name, fun) => {
 window.test.each = each(window.test);
 window.test.only = window.test;
 window.test.skip = () => {};
+
+window.it = window.test;
