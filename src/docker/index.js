@@ -4,6 +4,7 @@ const DockerOptions = dockerCLI.Options;
 const Docker = dockerCLI.Docker;
 
 const { exec } = require('child_process');
+const http = require('http');
 
 const options = new DockerOptions(
     /* machinename */ undefined, // we use docker locally not in vm
@@ -57,6 +58,44 @@ const getChromeWebSocket = containerId =>
             }
         );
     });
+
+async function getAvailableChromeWebSocket(ws, containerId) {
+    const inspectResponse = await docker.command(
+        `inspect --format='"{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"' ${containerId}`
+    );
+    const containerIp = inspectResponse.object;
+
+    debug(`Found container IP: ${containerIp}`);
+
+    const basicUrl = ws.match(/0\.0\.0\.0:\d+/)[0];
+    const urlsToCheck = [basicUrl, basicUrl.replace('0.0.0.0', containerIp)];
+
+    let availableUrl;
+    for (let i = 0; i < urlsToCheck.length; i++) {
+        const urlToCheck = urlsToCheck[i];
+        try {
+            await checkUrlAvailability(`http://${urlToCheck}`);
+            debug(`url available: ${urlToCheck}`);
+            availableUrl = urlToCheck;
+            break;
+        } catch (e) {
+            debug(`url unavailable: ${urlToCheck}`);
+        }
+    }
+
+    debug(`Found available Websocket at ${availableUrl}`);
+
+    return ws.replace(basicUrl, availableUrl);
+}
+
+async function checkUrlAvailability(url) {
+    return new Promise((resolve, reject) => {
+        const req = http.get(url, { timeout: 100 }, resolve);
+        req.setTimeout(100);
+        req.on('error', reject);
+        req.on('timeout', reject);
+    });
+}
 
 async function getRunningContainerIds(dockerImageName) {
     const { containerList } = await docker.command('ps');
@@ -112,7 +151,9 @@ async function start(config) {
 
     debug(`Found Websocket: ${ws}`);
 
-    return ws;
+    // when running container with chrome inside another container we haven't access to 0.0.0.0:9222
+    // so we have to try to access 0.0.0.0:9222 and <container IP>:9222 to found valid one
+    return await getAvailableChromeWebSocket(ws, containerId);
 }
 
 async function stop(config) {
