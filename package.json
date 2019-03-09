@@ -36,7 +36,8 @@
     "contributors": [
         "Stefan Schult <stefan@elbstack.com>",
         "Albino Tonnina <https://github.com/albinotonnina>",
-        "Timo Koenig <https://github.com/kaiserkoenig>"
+        "Timo Koenig <https://github.com/kaiserkoenig>",
+        "Aleksei Androsov <https://github.com/doochik>"
     ],
     "license": "BSD-3-Clause-No-Nuclear-Warranty",
     "bugs": {
