@@ -59,7 +59,7 @@ module.exports.setup = async function setup(
     debug('starting webpack-dev-server on port ' + port);
     webpackDevServer.listen(port);
 
-    console.log('Waiting for webpack build to succeed');
+    debug('Waiting for webpack build to succeed');
     const startTime = Date.now();
     while (true) {
         try {
