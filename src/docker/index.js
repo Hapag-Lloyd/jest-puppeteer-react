@@ -74,7 +74,7 @@ async function getAvailableChromeWebSocket(ws, containerId) {
     for (let i = 0; i < urlsToCheck.length; i++) {
         const urlToCheck = urlsToCheck[i];
         try {
-            await checkUrlAvailability(`http://${urlToCheck}`);
+            await checkUrlAvailability(urlToCheck);
             debug(`url available: ${urlToCheck}`);
             availableUrl = urlToCheck;
             break;
@@ -85,12 +85,21 @@ async function getAvailableChromeWebSocket(ws, containerId) {
 
     debug(`Found available Websocket at ${availableUrl}`);
 
-    return ws.replace(basicUrl, availableUrl);
+    // fallback to original ws if we can't find any available url
+    return availableUrl ? ws.replace(basicUrl, availableUrl) : ws;
 }
 
-async function checkUrlAvailability(url) {
+async function checkUrlAvailability(host) {
+    const chunks = host.split(':');
     return new Promise((resolve, reject) => {
-        const req = http.get(url, { timeout: 100 }, resolve);
+        const req = http.get(
+            {
+                hostname: chunks[0],
+                port: chunks[1],
+                timeout: 100,
+            },
+            resolve
+        );
         req.setTimeout(100);
         req.on('error', reject);
         req.on('timeout', reject);
