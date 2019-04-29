@@ -19,14 +19,15 @@ const getConfig = () =>
     require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
 module.exports.setup = async function setup(
-    { noInfo = true } = { noInfo: true }
+    { noInfo = true, rootDir, testPathPattern } = { noInfo: true }
 ) {
     debug('setup jest-puppeteer');
     await setupPuppeteer();
 
-    const rootPath = process.cwd(); // e.g. /Users/ansgar/projects/project-x
-    const testFiles = (await glob(`${rootPath}/**/*.browser.js`)).filter(
-        file => file.indexOf('node_modules') === -1
+    // build only files matching testPathPattern
+    const testPathPatterRe = new RegExp(testPathPattern, 'i');
+    const testFiles = (await glob(`${rootDir}/**/*.browser.js`)).filter(
+        file => !file.includes('node_modules') && testPathPatterRe.test(file)
     );
 
     const config = getConfig();
