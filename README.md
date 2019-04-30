@@ -113,6 +113,15 @@ module.exports = {
     port: 1111,
     renderOptions: {
         viewport: { deviceScaleFactor: 2 },
+
+        // function calls before page.goto()
+        before: (page) => {
+            // for example, disable cache
+            await page.setCacheEnabled(false);
+        },
+
+        // function calls after page.goto()
+        after: (page) => {},
     },
 };
 ```

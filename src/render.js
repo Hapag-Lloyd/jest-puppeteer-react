@@ -20,12 +20,20 @@ async function render(reactNode, options) {
         pageConfig.waitUntil = opts.waitUntil;
     }
 
+    if (opts.before) {
+        await opts.before(page);
+    }
+
     debug('page.goto ' + url);
     await page.goto(url, pageConfig);
 
     if (opts.viewport) {
         debug('setting a viewport from options');
         await page.setViewport(opts.viewport);
+    }
+
+    if (opts.after) {
+        await opts.after(page);
     }
 
     return page;
