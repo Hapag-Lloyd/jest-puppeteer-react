@@ -114,6 +114,15 @@ module.exports = {
     renderOptions: {
         viewport: { deviceScaleFactor: 2 },
         dumpConsole: false, // set to true to dump console.* from puppeteer
+
+        // function calls before page.goto()
+        before: (page) => {
+            // for example, disable cache
+            await page.setCacheEnabled(false);
+        },
+
+        // function calls after page.goto()
+        after: (page) => {},
     },
 };
 ```

@@ -35,6 +35,10 @@ async function render(reactNode, options) {
         });
         page.__jestReactPuppeteerEventsSubscription = true;
     }
+  
+    if (opts.before) {
+        await opts.before(page);
+    }
 
     debug('page.goto ' + url);
     await page.goto(url, pageConfig);
@@ -42,6 +46,10 @@ async function render(reactNode, options) {
     if (opts.viewport) {
         debug('setting a viewport from options');
         await page.setViewport(opts.viewport);
+    }
+
+    if (opts.after) {
+        await opts.after(page);
     }
 
     return page;
