@@ -113,6 +113,7 @@ module.exports = {
     port: 1111,
     renderOptions: {
         viewport: { deviceScaleFactor: 2 },
+        dumpConsole: false, // set to true to dump console.* from puppeteer
 
         // function calls before page.goto()
         before: (page) => {
