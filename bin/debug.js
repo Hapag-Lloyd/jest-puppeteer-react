@@ -1,3 +1,7 @@
 #!/usr/bin/env node
 
-require('../globalSetup.js')({ noInfo: false, rootDir: process.cwd() });
+require('../globalSetup.js')({
+    noInfo: false,
+    debugOnly: true,
+    rootDir: process.cwd(),
+});

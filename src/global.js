@@ -20,7 +20,10 @@ const getConfig = () =>
     require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
 module.exports.setup = async function setup(
-    { noInfo = true, rootDir, testPathPattern } = { noInfo: true }
+    { noInfo = true, rootDir, testPathPattern, debugOnly = false } = {
+        noInfo: true,
+        debugOnly: false,
+    }
 ) {
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
@@ -101,7 +104,7 @@ module.exports.setup = async function setup(
         return;
     }
 
-    if (config.useDocker) {
+    if (config.useDocker && !debugOnly) {
         try {
             spinner.start('Starting Docker for screenshots...');
             debug('calling docker.start()');
