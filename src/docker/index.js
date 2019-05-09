@@ -13,7 +13,7 @@ const options = new DockerOptions(
 
 const docker = new Docker(options);
 
-const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.0';
+const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
 
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
