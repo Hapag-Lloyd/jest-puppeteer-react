@@ -61,19 +61,28 @@ module.exports.setup = async function setup(
     const spinner = ora({ color: 'yellow', stream: process.stdout });
 
     const compiler = webpack(webpackConfig);
-    let compilerStats = null;
-    compiler.hooks.watchRun.tapAsync('jest-puppeeter-react', (_, callback) => {
-        spinner.start('Waiting for webpack build to succeed...');
-        callback();
-    });
-    compiler.hooks.done.tapAsync('jest-puppeeter-react', (stats, callback) => {
-        if (stats.hasErrors()) {
-            spinner.fail('Webpack build failed');
-        } else {
-            spinner.succeed('Webpack build finished');
-        }
-        compilerStats = stats;
-        callback();
+
+    const compilerHooks = new Promise((resolve, reject) => {
+        compiler.hooks.watchRun.tapAsync(
+            'jest-puppeeter-react',
+            (_, callback) => {
+                spinner.start('Waiting for webpack build to succeed...');
+                callback();
+            }
+        );
+        compiler.hooks.done.tapAsync(
+            'jest-puppeeter-react',
+            (stats, callback) => {
+                if (stats.hasErrors()) {
+                    spinner.fail('Webpack build failed');
+                    reject(stats);
+                } else {
+                    spinner.succeed('Webpack build finished');
+                    resolve(stats);
+                }
+                callback();
+            }
+        );
     });
 
     webpackDevServer = new WebpackDevServer(compiler, {
@@ -86,21 +95,9 @@ module.exports.setup = async function setup(
     debug('starting webpack-dev-server on port ' + port);
     webpackDevServer.listen(port);
 
-    const startTime = Date.now();
-    while (true) {
-        try {
-            await fetch('http://localhost:' + port);
-            break;
-        } catch (e) {
-            console.log(
-                `request timed out, retrying (${Math.round(
-                    (Date.now() - startTime) / 1000
-                )}s)`
-            );
-        }
-    }
-
-    if (compilerStats.hasErrors()) {
+    try {
+        await compilerHooks;
+    } catch (e) {
         return;
     }
 
