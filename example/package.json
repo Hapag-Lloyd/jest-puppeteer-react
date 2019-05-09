@@ -5,10 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "jest --config jest.config.json",
-        "postinstall": "require-link"
-    },
-    "requireSymlinks": {
-        "jest-puppeteer-react": "../"
+        "test:clearCache": "jest --clearCache --config jest.config.json"
     },
     "author": "",
     "license": "ISC",
@@ -40,7 +37,7 @@
         "html-webpack-plugin": "^3.2.0",
         "jest": "^24.8.0",
         "jest-enzyme": "^7.0.2",
-        "require-symlink": "^0.2.0",
+        "jest-puppeteer-react": "file:../",
         "webpack": "^4.29.1"
     },
     "dependencies": {

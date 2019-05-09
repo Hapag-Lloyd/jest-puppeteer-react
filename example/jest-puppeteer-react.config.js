@@ -2,8 +2,19 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const debug = require('debug')('jest-puppeteer-react');
-const isCI = typeof process.env.CI !== 'undefined';
+
 const isMac = process.platform === 'darwin';
+const isWin32 = process.platform === 'win32';
+
+const dockerHost = () => {
+    if (isMac) {
+        return 'docker.for.mac.host.internal';
+    }
+    if (isWin32) {
+        return 'host.docker.internal';
+    }
+    return '172.17.0.1';
+};
 
 function getIPAddress() {
     const interfaces = require('os').networkInterfaces();
@@ -66,11 +77,8 @@ module.exports = {
     port: 1111,
     renderOptions: {
         viewport: { deviceScaleFactor: 2 },
+        dumpConsole: false,
     },
     useDocker: true,
-    dockerHost: isMac
-        ? 'docker.for.mac.host.internal'
-        : isCI
-            ? getIPAddress()
-            : '192.168.65.1', // or try common default
+    dockerHost: dockerHost(),
 };
