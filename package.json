@@ -1,6 +1,6 @@
 {
     "name": "jest-puppeteer-react",
-    "version": "4.9.0",
+    "version": "5.0.1",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "bin": {
