@@ -25,7 +25,16 @@ async function render(reactNode, options) {
     if (opts.dumpConsole && !page.__jestReactPuppeteerEventsSubscription) {
         page.on('console', msg => {
             console.log(`event "console" from "${currentTestName}"`);
-            console[msg.type()](msg.text());
+
+            const msgType = msg.type();
+            const msgText = msg.text();
+            const consoleLogType = msgType === 'warning' ? 'warn' : msgType;
+            if (typeof console[consoleLogType] === 'function') {
+                console[consoleLogType](msgText);
+            } else {
+                console.log('Unexpected message type', consoleLogType);
+                console.log(msgText);
+            }
         });
         page.on('error', msg => {
             console.error(`event "error" from "${currentTestName}"`, msg);
@@ -35,7 +44,7 @@ async function render(reactNode, options) {
         });
         page.__jestReactPuppeteerEventsSubscription = true;
     }
-  
+
     if (opts.before) {
         await opts.before(page);
     }
