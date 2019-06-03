@@ -13,7 +13,7 @@ const options = new DockerOptions(
 
 const docker = new Docker(options);
 
-const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.0';
+const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
 
 const getChromeWebSocket = containerId =>
     new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ const getChromeWebSocket = containerId =>
 
 async function getAvailableChromeWebSocket(ws, containerId) {
     const inspectResponse = await docker.command(
-        `inspect --format='"{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"' ${containerId}`
+        `inspect --format=\\""{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"\\" ${containerId}`
     );
     const containerIp = inspectResponse.object;
 
@@ -134,10 +134,9 @@ async function start(config) {
         debug('docker container is already running');
         containerId = containerIds[0];
     } else {
-        debug('docker run');
-        const data2 = await docker.command(
-            `run -p 9222:9222 ${customEntryPoint} -d ${customRunOptions} ${dockerImageName} ${customCommand}`
-        );
+        const runCommand = `run -p 9222:9222 ${customEntryPoint} -d ${customRunOptions} ${dockerImageName} ${customCommand}`;
+        debug(`executing: docker ${runCommand}`);
+        const data2 = await docker.command(runCommand);
         debug('docker run result:', data2);
         containerId = data2.containerId;
     }
