@@ -92,6 +92,7 @@ module.exports.setup = async function setup(
         noInfo,
         disableHostCheck: true,
         stats: 'minimal',
+        ...(webpackConfig.devServer || {})
     });
 
     const port = config.port || 1111;
