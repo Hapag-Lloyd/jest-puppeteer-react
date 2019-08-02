@@ -49,13 +49,13 @@ async function render(reactNode, options) {
         await opts.before(page);
     }
 
-    debug('page.goto ' + url);
-    await page.goto(url, pageConfig);
-
     if (opts.viewport) {
         debug('setting a viewport from options');
         await page.setViewport(opts.viewport);
     }
+
+    debug('page.goto ' + url);
+    await page.goto(url, pageConfig);
 
     if (opts.after) {
         await opts.after(page);
