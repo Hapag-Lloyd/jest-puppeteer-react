@@ -1,6 +1,6 @@
 {
     "name": "jest-puppeteer-react",
-    "version": "5.1.0",
+    "version": "5.1.1",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
     "bin": {
@@ -53,14 +53,14 @@
         "jest-each": "^24.8.0",
         "jest-environment-node": "^24.8.0",
         "jest-environment-puppeteer": "4.1.1",
-        "jest-image-snapshot": "^2.8.1",
+        "jest-image-snapshot": "^2.11.0",
         "jest-puppeteer": "^3.3.1",
         "lodash.merge": "^4.6.1",
         "node-fetch": "^2.5.0",
         "ora": "^3.4.0",
         "pretty-format": "^24.8.0",
-        "webpack": "^4.30.0",
-        "webpack-dev-server": "^3.3.1"
+        "webpack": "^4.40.2",
+        "webpack-dev-server": "^3.8.1"
     },
     "peerDependencies": {
         "@babel/polyfill": "^7.0.0",
