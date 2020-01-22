@@ -27,7 +27,7 @@ module.exports.setup = async function setup(
 ) {
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
-    const testFiles = (await glob(`${rootDir}/**/*.browser.js`)).filter(
+    const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|tsx)`)).filter(
         file => {
             if (file.includes('node_modules')) {
                 return false;
@@ -92,7 +92,7 @@ module.exports.setup = async function setup(
         noInfo,
         disableHostCheck: true,
         stats: 'minimal',
-        ...(webpackConfig.devServer || {})
+        ...(webpackConfig.devServer || {}),
     });
 
     const port = config.port || 1111;
