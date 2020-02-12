@@ -44,7 +44,7 @@ module.exports = {
     ) {
         return {
             mode: 'development',
-            entry: { test: entryFiles },
+            entry: { test: ['@babel/polyfill', ...entryFiles] },
             devtool: 'eval-source-map',
             output: {
                 path: path.resolve(__dirname, 'build'),
