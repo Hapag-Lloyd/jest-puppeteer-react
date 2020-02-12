@@ -1,17 +1,13 @@
-const dockerCLI = require('docker-cli-js');
+const { dockerCommand  } = require('docker-cli-js');
 const debug = require('debug')('jest-puppeteer-react');
-const DockerOptions = dockerCLI.Options;
-const Docker = dockerCLI.Docker;
-
 const { exec } = require('child_process');
 const http = require('http');
 
-const options = new DockerOptions(
-    /* machinename */ undefined, // we use docker locally not in vm
-    /* currentWorkingDirectory */ __dirname
-);
-
-const docker = new Docker(options);
+const options = {
+    machineName: null, // use local docker
+    currentWorkingDirectory: __dirname, // use current working directory
+    echo: false, // echo command output to stdout/stderr
+};
 
 const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
 
@@ -60,8 +56,9 @@ const getChromeWebSocket = containerId =>
     });
 
 async function getAvailableChromeWebSocket(ws, containerId) {
-    const inspectResponse = await docker.command(
-        `inspect --format=\\""{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"\\" ${containerId}`
+    const inspectResponse = await dockerCommand(
+        `inspect --format=\\""{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"\\" ${containerId}`,
+        options,
     );
     const containerIp = inspectResponse.object;
 
@@ -107,7 +104,7 @@ async function checkUrlAvailability(host) {
 }
 
 async function getRunningContainerIds(dockerImageName) {
-    const { containerList } = await docker.command('ps');
+    const { containerList } = await dockerCommand('ps', options);
 
     debug('getRunningContainerIds', { containerList });
 
@@ -136,7 +133,7 @@ async function start(config) {
     } else {
         const runCommand = `run -p 9222:9222 ${customEntryPoint} -d ${customRunOptions} ${dockerImageName} ${customCommand}`;
         debug(`executing: docker ${runCommand}`);
-        const data2 = await docker.command(runCommand);
+        const data2 = await dockerCommand(runCommand, options);
         debug('docker run result:', data2);
         containerId = data2.containerId;
     }
@@ -175,7 +172,7 @@ async function stop(config) {
         for (let i = 0; i < ours.length; i++) {
             const containerId = ours[i];
 
-            const result = await docker.command(`stop ${containerId}`);
+            const result = await dockerCommand(`stop ${containerId}`, options);
             debug(
                 'stopped container with id ' + containerId + ' result:',
                 result
