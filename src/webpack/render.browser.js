@@ -4,9 +4,7 @@ export const render = async (reactNode, options) => {
     const testName = window.__path.join(' ');
 
     if (testName in window.__tests) {
-        throw new Error(
-            `Test name collision detected for "${testName}". Please use describe() or rename tests.`
-        );
+        throw new Error(`Test name collision detected for "${testName}". Please use describe() or rename tests.`);
     }
 
     // console.log('browser renderer', reactNode, testName);

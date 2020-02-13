@@ -1,6 +1,6 @@
 {
-    "globalSetup": "jest-puppeteer-react/globalSetup",
-    "globalTeardown": "jest-puppeteer-react/globalTeardown",
+    "globalSetup": "jest-puppeteer-react/setup",
+    "globalTeardown": "jest-puppeteer-react/teardown",
     "testEnvironment": "jest-puppeteer-react/environment",
     "setupFilesAfterEnv:":
         ["jest-puppeteer-react/expect-puppeteer-react"]

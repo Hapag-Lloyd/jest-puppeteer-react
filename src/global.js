@@ -16,8 +16,7 @@ const DIR = path.join(os.tmpdir(), 'jest_puppeteer_react_global_setup');
 
 let webpackDevServer;
 
-const getConfig = () =>
-    require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
+const getConfig = () => require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
 module.exports.setup = async function setup(
     { noInfo = true, rootDir, testPathPattern, debugOnly = false } = {
@@ -27,21 +26,12 @@ module.exports.setup = async function setup(
 ) {
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
-    const testFiles = (await glob(`${rootDir}/**/*.browser.js`)).filter(
-        file => {
-            if (file.includes('node_modules')) {
-                return false;
-            }
-            return testPathPatterRe.test(fs.realpathSync(file));
+    const testFiles = (await glob(`${rootDir}/**/*.browser.js`)).filter(file => {
+        if (file.includes('node_modules')) {
+            return false;
         }
-    );
-
-    // remove Jest's pre run message
-    if (process.stdout.isTTY) {
-        process.stdout.write('\x1b[999D\x1b[K');
-    } else {
-        process.stdout.write('\n');
-    }
+        return testPathPatterRe.test(fs.realpathSync(file));
+    });
 
     const config = getConfig();
 
@@ -51,10 +41,7 @@ module.exports.setup = async function setup(
         path.resolve(__dirname, 'webpack/entry.browser.js'),
     ];
     const aliasObject = {
-        'jest-puppeteer-react': path.resolve(
-            __dirname,
-            'webpack/render.browser.js'
-        ),
+        'jest-puppeteer-react': path.resolve(__dirname, 'webpack/render.browser.js'),
     };
 
     // TODO: document the conventions used here (and in the build / files) in README
@@ -65,33 +52,27 @@ module.exports.setup = async function setup(
     const compiler = webpack(webpackConfig);
 
     const compilerHooks = new Promise((resolve, reject) => {
-        compiler.hooks.watchRun.tapAsync(
-            'jest-puppeeter-react',
-            (_, callback) => {
-                spinner.start('Waiting for webpack build to succeed...');
-                callback();
+        compiler.hooks.watchRun.tapAsync('jest-puppeeter-react', (_, callback) => {
+            spinner.start('Waiting for webpack build to succeed...');
+            callback();
+        });
+        compiler.hooks.done.tapAsync('jest-puppeeter-react', (stats, callback) => {
+            if (stats.hasErrors()) {
+                spinner.fail('Webpack build failed');
+                reject(stats);
+            } else {
+                spinner.succeed('Webpack build finished');
+                resolve(stats);
             }
-        );
-        compiler.hooks.done.tapAsync(
-            'jest-puppeeter-react',
-            (stats, callback) => {
-                if (stats.hasErrors()) {
-                    spinner.fail('Webpack build failed');
-                    reject(stats);
-                } else {
-                    spinner.succeed('Webpack build finished');
-                    resolve(stats);
-                }
-                callback();
-            }
-        );
+            callback();
+        });
     });
 
     webpackDevServer = new WebpackDevServer(compiler, {
         noInfo,
         disableHostCheck: true,
         stats: 'minimal',
-        ...(webpackConfig.devServer || {})
+        ...(webpackConfig.devServer || {}),
     });
 
     const port = config.port || 1111;

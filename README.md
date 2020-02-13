@@ -16,7 +16,7 @@ This lib combines `jest-puppeteer` with webpack and webpack-dev-server to render
     }
     ```
 
-    Or require / include the needed scripts (`globalSetup, globalTeardown, testEnvironment, setupTestFrameworkScriptFile`).
+    Or require / include the needed scripts.
 
 2.  Add a config file which contains a function to return a webpack config which is used to render:
 
@@ -139,10 +139,3 @@ If you want to use the page object directly (without using the return value of r
 
 To be able to render the components in the browser, the test cases are required via webpack and the structure functions such as describe and test are evaluated. However, special behavior implemented in jest may be missing. For example mocks and timers are not supported currently.
 Furthermore at the moment hooks are not supported aswell. But they could be implemented quite easily.
-
-## Todos
-
-*   check if we need babel for jest aswell. we probably do for jsx syntax
-*   make webpack config option step optional and supply a simple config with js/jsx loader.
-*   document requirement: run jest from root directory of project (containing config files)
-*   support beforeEach, afterEach, beforeAll and afterAll

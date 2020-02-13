@@ -4,8 +4,8 @@
     },
     "setupFilesAfterEnv": ["<rootDir>/test-lib/setup/setup-test-framework.js"],
     "setupFiles": ["<rootDir>/test-lib/setup/enzyme.js"],
-    "globalSetup": "<rootDir>/../globalSetup",
-    "globalTeardown": "<rootDir>/../globalTeardown",
+    "globalSetup": "<rootDir>/../setup",
+    "globalTeardown": "<rootDir>/../teardown",
     "transform": {
         "^.+\\.js?$": "babel-jest"
     }

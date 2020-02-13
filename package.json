@@ -13,8 +13,7 @@
         "pretest": "cd example && yarn install",
         "test": "cd example && yarn test",
         "precommit": "pretty-quick --staged",
-        "prettier": "prettier --write \"./**/*.js\"",
-        "serve": "cd example && node -e \"require(__dirname + '/../globalSetup.js')({noInfo: false})\""
+        "prettier": "prettier --write \"./**/*.js\""
     },
     "repository": {
         "type": "git",
@@ -23,17 +22,13 @@
     "keywords": [
         "jest",
         "react",
-        "components",
         "puppeteer",
-        "chrome",
-        "screenshot",
         "test",
-        "testing",
-        "image",
-        "diff"
+        "testing"
     ],
     "author": "Ansgar Mertens <ansgar@elbstack.com>",
     "contributors": [
+        "Jan Rosczak <jan.rosczak@hlag.com>",
         "Stefan Schult <stefan@elbstack.com>",
         "Albino Tonnina <https://github.com/albinotonnina>",
         "Timo Koenig <https://github.com/kaiserkoenig>",
@@ -81,7 +76,52 @@
     },
     "prettier": {
         "tabWidth": 4,
+        "trailingComma": "es5",
         "singleQuote": true,
-        "trailingComma": "es5"
+        "printWidth": 140,
+        "overrides": [
+            {
+                "files": "*.json",
+                "options": {
+                    "parser": "json"
+                }
+            },
+            {
+                "files": "*.md",
+                "options": {
+                    "parser": "markdown"
+                }
+            },
+            {
+                "files": "*.ts",
+                "options": {
+                    "parser": "typescript"
+                }
+            },
+            {
+                "files": "*.tsx",
+                "options": {
+                    "parser": "typescript"
+                }
+            },
+            {
+                "files": ".prettierrc",
+                "options": {
+                    "parser": "json"
+                }
+            },
+            {
+                "files": "*.html",
+                "options": {
+                    "parser": "html"
+                }
+            },
+            {
+                "files": "*.css",
+                "options": {
+                    "parser": "css"
+                }
+            }
+        ]
     }
 }
