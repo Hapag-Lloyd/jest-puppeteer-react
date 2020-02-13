@@ -3,8 +3,7 @@ import pretty from 'pretty-format';
 
 // some snippet of the code inspired/copied by https://github.com/facebook/jest/blob/master/packages/jest-each/src/bind.js
 
-if (!window.Proxy)
-    throw new Error('The environment needs to support window.Proxy!');
+if (!window.Proxy) throw new Error('The environment needs to support window.Proxy!');
 
 const makeShrugger = () => {
     const functionMock = () => {};
@@ -48,13 +47,7 @@ const applyRestParams = (params, test) => {
 };
 
 const getPrettyIndexes = placeholders =>
-    placeholders.reduce(
-        (indexes, placeholder, index) =>
-            placeholder === PRETTY_PLACEHOLDER
-                ? indexes.concat(index)
-                : indexes,
-        []
-    );
+    placeholders.reduce((indexes, placeholder, index) => (placeholder === PRETTY_PLACEHOLDER ? indexes.concat(index) : indexes), []);
 
 const arrayFormat = (title, ...args) => {
     const placeholders = title.match(SUPPORTED_PLACEHOLDERS) || [];
@@ -65,10 +58,7 @@ const arrayFormat = (title, ...args) => {
             if (prettyIndexes.indexOf(index) !== -1) {
                 return {
                     args: acc.args,
-                    title: acc.title.replace(
-                        PRETTY_PLACEHOLDER,
-                        pretty(arg, { maxDepth: 1, min: true })
-                    ),
+                    title: acc.title.replace(PRETTY_PLACEHOLDER, pretty(arg, { maxDepth: 1, min: true })),
                 };
             }
 
@@ -80,20 +70,13 @@ const arrayFormat = (title, ...args) => {
         { args: [], title }
     );
 
-    return format(
-        prettyTitle,
-        ...remainingArgs.slice(0, placeholders.length - prettyIndexes.length)
-    );
+    return format(prettyTitle, ...remainingArgs.slice(0, placeholders.length - prettyIndexes.length));
 };
 
 const each = cb => (...args) => {
     return (title, testFun) => {
-        const table = args[0].every(Array.isArray)
-            ? args[0]
-            : args[0].map(entry => [entry]);
-        return table.forEach(row =>
-            cb(arrayFormat(title, ...row), applyRestParams(row, testFun))
-        );
+        const table = args[0].every(Array.isArray) ? args[0] : args[0].map(entry => [entry]);
+        return table.forEach(row => cb(arrayFormat(title, ...row), applyRestParams(row, testFun)));
     };
 };
 

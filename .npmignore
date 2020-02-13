@@ -3,3 +3,8 @@ node_modules/
 .idea/
 yarn-error.log
 __tests__
+.travis.yml
+.prettierignore
+.gitignore
+.editorconfig
+yarn.lock

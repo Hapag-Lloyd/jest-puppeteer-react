@@ -23,12 +23,7 @@ function getIPAddress() {
 
         for (let i = 0; i < iface.length; i++) {
             const alias = iface[i];
-            if (
-                alias.family === 'IPv4' &&
-                alias.address !== '127.0.0.1' &&
-                !alias.internal
-            )
-                return alias.address;
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) return alias.address;
         }
     }
 
@@ -38,10 +33,7 @@ function getIPAddress() {
 debug(`get ip address: ${getIPAddress()}`);
 
 module.exports = {
-    generateWebpackConfig: function generateWebpackConfig(
-        entryFiles,
-        aliasObject
-    ) {
+    generateWebpackConfig: function generateWebpackConfig(entryFiles, aliasObject) {
         return {
             mode: 'development',
             entry: { test: ['@babel/polyfill', ...entryFiles] },

@@ -48,16 +48,13 @@ describe('Button', () => {
     });
 
     describe.each(['describe 1', 'describe 2'])('with %s', d => {
-        test.each(['test 1', 'test 2'])(
-            'should render correctly %s',
-            async t => {
-                await render(<Button label={`Button in ${d} and ${t}`} />, {
-                    viewport: { width: 100, height: 100 },
-                });
+        test.each(['test 1', 'test 2'])('should render correctly %s', async t => {
+            await render(<Button label={`Button in ${d} and ${t}`} />, {
+                viewport: { width: 100, height: 100 },
+            });
 
-                const screenshot = await page.screenshot();
-                expect(screenshot).toMatchImageSnapshot();
-            }
-        );
+            const screenshot = await page.screenshot();
+            expect(screenshot).toMatchImageSnapshot();
+        });
     });
 });

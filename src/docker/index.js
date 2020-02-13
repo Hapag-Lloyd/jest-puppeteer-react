@@ -1,4 +1,4 @@
-const { dockerCommand  } = require('docker-cli-js');
+const { dockerCommand } = require('docker-cli-js');
 const debug = require('debug')('jest-puppeteer-react');
 const { exec } = require('child_process');
 const http = require('http');
@@ -17,48 +17,36 @@ const getChromeWebSocket = containerId =>
         debug('getting Chrome DevTools WebSocket from docker logs');
 
         const maxBuffer = 1024 * 1024 * 10; // 10 MB
-        exec(
-            `docker logs ${containerId}`,
-            { maxBuffer },
-            (err, stdout, stderr) => {
-                if (err) {
-                    return reject(err);
-                }
-
-                // "DevTools listening on ws://0.0.0.0:9222/devtools/browser/3fa3f446-3b92-4ddc-9ae4-ef1d6a65c3b0"
-                const results = /DevTools\slistening\son\s(ws:\/\/0\.0\.0\.0:9222\/devtools\/browser\/.*)/m.exec(
-                    stderr
-                );
-
-                const results2 = /DevTools\slistening\son\s(ws:\/\/0\.0\.0\.0:9222\/devtools\/browser\/.*)/m.exec(
-                    stdout
-                );
-
-                if (!results || results.length < 1) {
-                    if (results2 && results2.length > 0) {
-                        debug('found devtools link on stdout: ' + results2[1]);
-                        return resolve(results2[1]);
-                    } else {
-                        console.log(stdout);
-                        console.log(stderr);
-                        return reject(
-                            new Error(
-                                'could not find DevTools Websocket in startup logs'
-                            )
-                        );
-                    }
-                }
-
-                debug('found devtools link on stderr: ' + results[1]);
-                resolve(results[1]);
+        exec(`docker logs ${containerId}`, { maxBuffer }, (err, stdout, stderr) => {
+            if (err) {
+                return reject(err);
             }
-        );
+
+            // "DevTools listening on ws://0.0.0.0:9222/devtools/browser/3fa3f446-3b92-4ddc-9ae4-ef1d6a65c3b0"
+            const results = /DevTools\slistening\son\s(ws:\/\/0\.0\.0\.0:9222\/devtools\/browser\/.*)/m.exec(stderr);
+
+            const results2 = /DevTools\slistening\son\s(ws:\/\/0\.0\.0\.0:9222\/devtools\/browser\/.*)/m.exec(stdout);
+
+            if (!results || results.length < 1) {
+                if (results2 && results2.length > 0) {
+                    debug('found devtools link on stdout: ' + results2[1]);
+                    return resolve(results2[1]);
+                } else {
+                    console.log(stdout);
+                    console.log(stderr);
+                    return reject(new Error('could not find DevTools Websocket in startup logs'));
+                }
+            }
+
+            debug('found devtools link on stderr: ' + results[1]);
+            resolve(results[1]);
+        });
     });
 
 async function getAvailableChromeWebSocket(ws, containerId) {
     const inspectResponse = await dockerCommand(
         `inspect --format=\\""{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"\\" ${containerId}`,
-        options,
+        options
     );
     const containerIp = inspectResponse.object;
 
@@ -108,9 +96,7 @@ async function getRunningContainerIds(dockerImageName) {
 
     debug('getRunningContainerIds', { containerList });
 
-    return containerList
-        .filter(({ image }) => image === dockerImageName)
-        .map(container => container['container id']);
+    return containerList.filter(({ image }) => image === dockerImageName).map(container => container['container id']);
 }
 
 /**
@@ -118,9 +104,7 @@ async function getRunningContainerIds(dockerImageName) {
  */
 async function start(config) {
     const dockerImageName = config.dockerImageName || DEFAULT_DOCKER_IMAGE_NAME;
-    const customEntryPoint = config.dockerEntrypoint
-        ? `--entrypoint=${config.dockerEntrypoint}`
-        : '';
+    const customEntryPoint = config.dockerEntrypoint ? `--entrypoint=${config.dockerEntrypoint}` : '';
     const customRunOptions = config.dockerRunOptions || '';
     const customCommand = config.dockerCommand || '';
 
@@ -173,10 +157,7 @@ async function stop(config) {
             const containerId = ours[i];
 
             const result = await dockerCommand(`stop ${containerId}`, options);
-            debug(
-                'stopped container with id ' + containerId + ' result:',
-                result
-            );
+            debug('stopped container with id ' + containerId + ' result:', result);
         }
     } else {
         debug('no containers to stop');
