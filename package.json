@@ -34,7 +34,7 @@
         "Timo Koenig <https://github.com/kaiserkoenig>",
         "Aleksei Androsov <https://github.com/doochik>"
     ],
-    "license": "BSD-3-Clause-No-Nuclear-Warranty",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/hapag-lloyd/jest-puppeteer-react/issues"
     },
