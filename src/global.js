@@ -26,7 +26,7 @@ module.exports.setup = async function setup(
 ) {
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
-    const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`)).filter(file => {
+    const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`)).filter((file) => {
         if (file.includes('node_modules')) {
             return false;
         }

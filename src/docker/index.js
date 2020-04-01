@@ -11,7 +11,7 @@ const options = {
 
 const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
 
-const getChromeWebSocket = containerId =>
+const getChromeWebSocket = (containerId) =>
     new Promise((resolve, reject) => {
         // we have to do this because on mac the logs end up on stderr (which docker-cli-js ignores)
         debug('getting Chrome DevTools WebSocket from docker logs');
@@ -96,7 +96,7 @@ async function getRunningContainerIds(dockerImageName) {
 
     debug('getRunningContainerIds', { containerList });
 
-    return containerList.filter(({ image }) => image === dockerImageName).map(container => container['container id']);
+    return containerList.filter(({ image }) => image === dockerImageName).map((container) => container['container id']);
 }
 
 /**
@@ -131,7 +131,7 @@ async function start(config) {
             if (retriesLeft > 0) {
                 retriesLeft--;
                 debug('waiting 5 seconds for logs');
-                await new Promise(resolve => setTimeout(resolve, 5000));
+                await new Promise((resolve) => setTimeout(resolve, 5000));
             } else {
                 throw e;
             }

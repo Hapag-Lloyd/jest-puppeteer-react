@@ -63,7 +63,7 @@ if (urlParams.has('test')) {
         Object.entries(values)
             .sort(([a], [b]) => a.localeCompare(b))
             .map(createDetailsBlock)
-            .forEach(entry => element.appendChild(entry));
+            .forEach((entry) => element.appendChild(entry));
     };
 
     const createDetailsBlock = ([key, values]) => {
@@ -90,17 +90,17 @@ if (urlParams.has('test')) {
 
             a.href = url;
 
-            a.onclick = e => {
+            a.onclick = (e) => {
                 e.stopPropagation();
                 window.history.pushState({}, description, url);
                 updateContainer(values.__reactNode, values.viewport, description);
                 return false;
             };
 
-            a.onmouseenter = e => {
+            a.onmouseenter = (e) => {
                 e.target.style.setProperty('background-color', '#ddd');
             };
-            a.onmouseleave = e => {
+            a.onmouseleave = (e) => {
                 e.target.style.removeProperty('background-color');
             };
             a.text = key;

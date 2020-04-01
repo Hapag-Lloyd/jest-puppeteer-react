@@ -21,7 +21,7 @@ async function render(reactNode, options) {
     // jest-puppeteer reuses page (browser tab) beetween tests
     // `__jestReactPuppeteerEventsSubscription` flag needs to avoid subscription duplication
     if (opts.dumpConsole && !page.__jestReactPuppeteerEventsSubscription) {
-        page.on('console', msg => {
+        page.on('console', (msg) => {
             console.log(`event "console" from "${currentTestName}"`);
 
             const msgType = msg.type();
@@ -34,10 +34,10 @@ async function render(reactNode, options) {
                 console.log(msgText);
             }
         });
-        page.on('error', msg => {
+        page.on('error', (msg) => {
             console.error(`event "error" from "${currentTestName}"`, msg);
         });
-        page.on('pageerror', msg => {
+        page.on('pageerror', (msg) => {
             console.error(`event "pageerror" from "${currentTestName}"`, msg);
         });
         page.__jestReactPuppeteerEventsSubscription = true;
