@@ -25,7 +25,7 @@ window.jest = shrugger;
 window.page = shrugger;
 window.expect = shrugger;
 
-const notImplementedYet = name => () => {
+const notImplementedYet = (name) => () => {
     throw new Error(`${name} is not supported yet in jest-puppeteer-react`);
 };
 
@@ -46,7 +46,7 @@ const applyRestParams = (params, test) => {
     return () => test(...params);
 };
 
-const getPrettyIndexes = placeholders =>
+const getPrettyIndexes = (placeholders) =>
     placeholders.reduce((indexes, placeholder, index) => (placeholder === PRETTY_PLACEHOLDER ? indexes.concat(index) : indexes), []);
 
 const arrayFormat = (title, ...args) => {
@@ -73,10 +73,10 @@ const arrayFormat = (title, ...args) => {
     return format(prettyTitle, ...remainingArgs.slice(0, placeholders.length - prettyIndexes.length));
 };
 
-const each = cb => (...args) => {
+const each = (cb) => (...args) => {
     return (title, testFun) => {
-        const table = args[0].every(Array.isArray) ? args[0] : args[0].map(entry => [entry]);
-        return table.forEach(row => cb(arrayFormat(title, ...row), applyRestParams(row, testFun)));
+        const table = args[0].every(Array.isArray) ? args[0] : args[0].map((entry) => [entry]);
+        return table.forEach((row) => cb(arrayFormat(title, ...row), applyRestParams(row, testFun)));
     };
 };
 
