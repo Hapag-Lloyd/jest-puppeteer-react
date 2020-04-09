@@ -89,15 +89,15 @@ module.exports.setup = async function setup(
         try {
             spinner.start('Starting Docker for screenshots...');
             debug('calling docker.start()');
-            const ws = await docker.start(config);
-            debug('websocket is ' + ws);
+            const browserURL = await docker.start(config);
+            debug('browserURL is ' + browserURL);
             process.env.JEST_PUPPETEER_CONFIG = path.join(DIR, 'config.json');
             fs.mkdirSync(DIR, { recursive: true });
             fs.writeFileSync(
                 process.env.JEST_PUPPETEER_CONFIG,
                 JSON.stringify({
                     connect: {
-                        browserWSEndpoint: ws,
+                        browserURL: browserURL,
                     },
                 })
             );
