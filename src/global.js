@@ -1,5 +1,9 @@
 const setupPuppeteer = require('jest-environment-puppeteer/setup');
 const teardownPuppeteer = require('jest-environment-puppeteer/teardown');
+const {
+    setup: setupPuppeteerWithDocker,
+    teardown: teardownPuppeteerWithDocker
+} = require('jest-puppeteer-docker');
 const ora = require('ora');
 const debug = require('debug')('jest-puppeteer-react');
 const webpack = require('webpack');
@@ -8,22 +12,14 @@ const WebpackDevServer = require('webpack-dev-server');
 const { promisify } = require('util');
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 const glob = promisify(require('glob'));
-const docker = require('./docker');
-
-const DIR = path.join(os.tmpdir(), 'jest_puppeteer_react_global_setup');
 
 let webpackDevServer;
 
 const getConfig = () => require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
-module.exports.setup = async function setup(
-    { noInfo = true, rootDir, testPathPattern, debugOnly = false } = {
-        noInfo: true,
-        debugOnly: false,
-    }
-) {
+module.exports.setup = async function setup(jestConfig = {}) {
+    const { noInfo = true, rootDir, testPathPattern, debugOnly = false } = jestConfig;
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
     const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`)).filter((file) => {
@@ -85,47 +81,25 @@ module.exports.setup = async function setup(
         return;
     }
 
-    if (config.useDocker && !debugOnly) {
-        try {
-            spinner.start('Starting Docker for screenshots...');
-            debug('calling docker.start()');
-            const ws = await docker.start(config);
-            debug('websocket is ' + ws);
-            process.env.JEST_PUPPETEER_CONFIG = path.join(DIR, 'config.json');
-            fs.mkdirSync(DIR, { recursive: true });
-            fs.writeFileSync(
-                process.env.JEST_PUPPETEER_CONFIG,
-                JSON.stringify({
-                    connect: {
-                        browserWSEndpoint: ws,
-                    },
-                })
-            );
-            spinner.succeed('Docker started');
-        } catch (e) {
-            console.error(e);
-            throw new Error('Failed to start docker for screenshots');
-        }
-    }
-
     debug('setup jest-puppeteer');
-    await setupPuppeteer();
+    if (config.useDocker && !debugOnly) {
+        await setupPuppeteerWithDocker(jestConfig);
+    } else {
+        await setupPuppeteer(jestConfig);
+    }
 };
 
-module.exports.teardown = async function teardown() {
+module.exports.teardown = async function teardown(jestConfig = {}) {
+    const { debugOnly = false } = jestConfig;
     debug('stopping webpack-dev-server');
     webpackDevServer.close();
 
     const config = getConfig();
-    try {
-        if (config.useDocker) {
-            debug('stopping docker');
-            await docker.stop(config);
-        }
-    } catch (e) {
-        console.error(e);
-    }
 
     debug('teardown jest-puppeteer');
-    await teardownPuppeteer();
+    if (config.useDocker && !debugOnly) {
+        await teardownPuppeteerWithDocker(jestConfig);
+    } else {
+        await teardownPuppeteer(jestConfig);
+    }
 };
