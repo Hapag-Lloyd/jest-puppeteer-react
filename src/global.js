@@ -3,7 +3,6 @@ const teardownPuppeteer = require('jest-environment-puppeteer/teardown');
 const ora = require('ora');
 const debug = require('debug')('jest-puppeteer-react');
 const webpack = require('webpack');
-const fetch = require('node-fetch');
 const WebpackDevServer = require('webpack-dev-server');
 const { promisify } = require('util');
 const path = require('path');
