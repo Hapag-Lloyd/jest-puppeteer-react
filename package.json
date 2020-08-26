@@ -52,7 +52,6 @@
         "jest-image-snapshot": "^4.0.2",
         "jest-puppeteer": "^4.4.0",
         "lodash.merge": "^4.6.2",
-        "node-fetch": "^2.6.0",
         "ora": "^4.0.4",
         "pretty-format": "^26.1.0",
         "webpack": "^4.43.0",
