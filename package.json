@@ -3,7 +3,7 @@
     "version": "7.0.1",
     "description": "screenshot tests for your react components in chromium using puppeteer & jest",
     "main": "src/index.js",
-    "types": "build/index.d.ts",
+    "types": "src/index.d.ts",
     "bin": {
         "jestPuppeteerReactDebug": "./bin/debug.js"
     },
