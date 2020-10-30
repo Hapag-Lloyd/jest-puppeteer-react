@@ -36,15 +36,14 @@
         "enzyme-adapter-react-16": "^1.15.2",
         "html-webpack-plugin": "^4.3.0",
         "jest": "^26.1.0",
-        "jest-enzyme": "^7.1.2",
-        "jest-puppeteer-react": "file:..",
-        "webpack": "^4.43.0"
+        "jest-enzyme": "^7.1.2"
     },
     "dependencies": {
         "@babel/polyfill": "^7.10.4",
         "format-util": "^1.0.5",
+        "jest-puppeteer-react": "file:.yalc/jest-puppeteer-react",
         "prop-types": "^15.7.2",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1"
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0"
     }
 }
