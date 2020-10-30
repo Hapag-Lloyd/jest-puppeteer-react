@@ -38,7 +38,7 @@ async function getAvailableBrowserURL(containerId) {
         return availableUrl;
     }
 
-    throw new Error('could not find available browserURL');;
+    throw new Error('could not find available browserURL');
 }
 
 async function checkUrlAvailability(url) {
@@ -89,7 +89,7 @@ async function start(config) {
     }
 
     // wait a moment for Chrome to start
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     let retriesLeft = 10;
     let browserURL = null;
