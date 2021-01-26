@@ -10,4 +10,4 @@ export interface JestPuppeteerReactRenderOptions extends DirectNavigationOptions
 export function render(
     component: JSX.Element,
     options?: JestPuppeteerReactRenderOptions
-): Page;
+): Promise<Page>;
