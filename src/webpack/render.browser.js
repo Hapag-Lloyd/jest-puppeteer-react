@@ -12,4 +12,6 @@ export const render = async (reactNode, options) => {
         reactNode,
         path: [...window.__path],
     });
+    
+    return window.page;
 };
