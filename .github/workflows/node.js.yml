@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches-ignore: [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ]
+    branches-ignore: [ $default-branch ]
 
 jobs:
   build:
