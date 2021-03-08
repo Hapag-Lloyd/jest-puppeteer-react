@@ -116,7 +116,7 @@ module.exports = {
         dumpConsole: false, // set to true to dump console.* from puppeteer
 
         // function calls before page.goto()
-        before: (page) => {
+        before: async (page) => {
             // for example, disable cache
             await page.setCacheEnabled(false);
         },
