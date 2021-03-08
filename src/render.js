@@ -6,9 +6,10 @@ async function render(reactNode, options) {
     debug('rendering for testname ' + currentTestName);
     const config = global._jest_puppeteer_react_default_config;
     const opts = merge({}, config.renderOptions, options);
+    const protocol = config.useHttps ? 'https' : 'http';
     const host = config.useDocker ? config.dockerHost : 'localhost';
 
-    const url = `http://${host}:${config.port}?test=${encodeURIComponent(currentTestName)}`;
+    const url = `${protocol}://${host}:${config.port}?test=${encodeURIComponent(currentTestName)}`;
 
     const pageConfig = {};
     if (opts.timeout) {

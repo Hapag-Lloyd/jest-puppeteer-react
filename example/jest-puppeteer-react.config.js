@@ -44,6 +44,7 @@ module.exports = {
             },
             devServer: {
                 contentBase: './',
+                https: true,
             },
             resolve: {
                 alias: aliasObject,
@@ -71,6 +72,7 @@ module.exports = {
         viewport: { deviceScaleFactor: 1 },
         dumpConsole: false,
     },
+    useHttps: true,
     useDocker: true,
     dockerHost: dockerHost(),
 };
