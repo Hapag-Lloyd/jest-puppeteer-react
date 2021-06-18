@@ -8,5 +8,6 @@
     "globalTeardown": "<rootDir>/../teardown",
     "transform": {
         "^.+\\.js?$": "babel-jest"
-    }
+    },
+    "testEnvironment": "jsdom"
 }
