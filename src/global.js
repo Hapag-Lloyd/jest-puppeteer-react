@@ -48,7 +48,12 @@ module.exports.setup = async function setup(
 
     const spinner = ora({ color: 'yellow', stream: process.stdout });
 
-    const compiler = webpack(webpackConfig);
+    const compiler = webpack({
+        infrastructureLogging: {
+            level: 'warn',
+        },
+        ...webpackConfig,
+    });
 
     const compilerHooks = new Promise((resolve, reject) => {
         compiler.hooks.watchRun.tapAsync('jest-puppeeter-react', (_, callback) => {
@@ -67,12 +72,16 @@ module.exports.setup = async function setup(
         });
     });
 
-    webpackDevServer = new WebpackDevServer(compiler, {
-        noInfo,
-        disableHostCheck: true,
-        stats: 'minimal',
-        ...(webpackConfig.devServer || {}),
-    });
+    webpackDevServer = new WebpackDevServer(
+        {
+            allowedHosts: 'all',
+            devMiddleware: {
+                stats: 'minimal',
+            },
+            ...(webpackConfig.devServer || {}),
+        },
+        compiler
+    );
 
     const port = config.port || 1111;
     debug('starting webpack-dev-server on port ' + port);
