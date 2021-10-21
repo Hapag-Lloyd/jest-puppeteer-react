@@ -43,7 +43,6 @@ module.exports = {
                 filename: '[name].js',
             },
             devServer: {
-                contentBase: './',
                 https: true,
             },
             resolve: {
