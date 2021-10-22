@@ -72,24 +72,25 @@ module.exports.setup = async function setup(
         });
     });
 
+    const port = config.port || 1111;
+    debug('starting webpack-dev-server on port ' + port);
     webpackDevServer = new WebpackDevServer(
         {
             allowedHosts: 'all',
             devMiddleware: {
                 stats: 'minimal',
             },
+            port,
             ...(webpackConfig.devServer || {}),
         },
         compiler
     );
 
-    const port = config.port || 1111;
-    debug('starting webpack-dev-server on port ' + port);
-    webpackDevServer.listen(port);
-
     try {
+        await webpackDevServer.start();
         await compilerHooks;
     } catch (e) {
+        console.error(e);
         return;
     }
 
@@ -122,7 +123,11 @@ module.exports.setup = async function setup(
 
 module.exports.teardown = async function teardown() {
     debug('stopping webpack-dev-server');
-    webpackDevServer.close();
+    try {
+        await webpackDevServer.stop();
+    } catch (e) {
+        console.error(e);
+    }
 
     const config = getConfig();
     try {
