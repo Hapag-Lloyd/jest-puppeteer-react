@@ -43,7 +43,7 @@ module.exports = {
                 filename: '[name].js',
             },
             devServer: {
-                https: true,
+                server: 'https',
             },
             resolve: {
                 alias: aliasObject,

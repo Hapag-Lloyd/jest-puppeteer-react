@@ -73,12 +73,14 @@ const arrayFormat = (title, ...args) => {
     return format(prettyTitle, ...remainingArgs.slice(0, placeholders.length - prettyIndexes.length));
 };
 
-const each = (cb) => (...args) => {
-    return (title, testFun) => {
-        const table = args[0].every(Array.isArray) ? args[0] : args[0].map((entry) => [entry]);
-        return table.forEach((row) => cb(arrayFormat(title, ...row), applyRestParams(row, testFun)));
+const each =
+    (cb) =>
+    (...args) => {
+        return (title, testFun) => {
+            const table = args[0].every(Array.isArray) ? args[0] : args[0].map((entry) => [entry]);
+            return table.forEach((row) => cb(arrayFormat(title, ...row), applyRestParams(row, testFun)));
+        };
     };
-};
 
 window.describe = (name, fun) => {
     window.__path.push(name);

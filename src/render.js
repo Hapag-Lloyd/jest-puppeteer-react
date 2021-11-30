@@ -1,4 +1,4 @@
-const merge = require('lodash.merge');
+const merge = require('lodash/merge');
 const debug = require('debug')('jest-puppeteer-react');
 
 async function render(reactNode, options) {
