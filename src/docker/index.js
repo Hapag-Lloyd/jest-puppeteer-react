@@ -7,6 +7,7 @@ const options = {
     machineName: null, // use local docker
     currentWorkingDirectory: __dirname, // use current working directory
     echo: false, // echo command output to stdout/stderr
+    env: process.env, // use process.env variables
 };
 
 const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
