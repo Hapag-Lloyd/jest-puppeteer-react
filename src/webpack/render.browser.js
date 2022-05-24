@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const render = async (reactNode, options) => {
     const testName = window.__path.join(' ');
 
