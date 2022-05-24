@@ -29,21 +29,19 @@
         "@babel/plugin-syntax-import-meta": "^7.10.4",
         "@babel/preset-env": "^7.16.11",
         "@babel/preset-react": "^7.16.7",
-        "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
         "babel-core": "^7.0.0-bridge.0",
-        "babel-jest": "^27.5.1",
-        "babel-loader": "^8.2.3",
-        "enzyme": "^3.11.0",
+        "babel-jest": "^28.1.0",
+        "babel-loader": "^8.2.5",
         "html-webpack-plugin": "^5.5.0",
-        "jest": "^27.5.1",
-        "jest-enzyme": "^7.1.2"
+        "jest": "^28.1.0",
+        "jest-environment-jsdom": "^28.1.0"
     },
     "dependencies": {
         "@babel/polyfill": "^7.10.4",
         "format-util": "^1.0.5",
         "jest-puppeteer-react": "file:.yalc/jest-puppeteer-react",
         "prop-types": "^15.8.1",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0"
     }
 }

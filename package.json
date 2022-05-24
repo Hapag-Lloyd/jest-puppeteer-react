@@ -8,7 +8,7 @@
         "jestPuppeteerReactDebug": "./bin/debug.js"
     },
     "engines": {
-        "node": ">= 10.13.0"
+        "node": ">= 14.1.0"
     },
     "scripts": {
         "pretest": "yalc publish && cd example && yalc add jest-puppeteer-react && yarn install",
@@ -42,38 +42,38 @@
     },
     "homepage": "https://github.com/hapag-lloyd/jest-puppeteer-react#readme",
     "dependencies": {
-        "debug": "^4.3.3",
+        "debug": "^4.3.4",
         "docker-cli-js": "^2.9.0",
         "expect-puppeteer": "^6.1.0",
         "format-util": "^1.0.5",
-        "glob": "^7.2.0",
-        "jest-each": "^27.5.1",
-        "jest-environment-node": "^27.5.1",
+        "glob": "^7.2.3",
+        "jest-each": "^28.1.0",
+        "jest-environment-node": "^28.1.0",
         "jest-environment-puppeteer": "^6.0.3",
         "jest-image-snapshot": "^4.5.1",
         "jest-puppeteer": "^6.1.0",
         "lodash": "^4.17.21",
-        "ora": "^5.4.0",
-        "pretty-format": "^27.5.1"
+        "ora": "^5.4.1",
+        "pretty-format": "^28.1.0"
     },
     "peerDependencies": {
-        "jest": "27.x",
+        "jest": "28.x",
         "puppeteer": "*",
-        "react": "16.x || 17.x",
-        "react-dom": "16.x || 17.x",
+        "react": "18.x",
+        "react-dom": "18.x",
         "webpack": "5.x",
         "webpack-dev-server": "4.x"
     },
     "devDependencies": {
         "husky": "^4.3.8",
         "mkdirp": "^1.0.4",
-        "prettier": "^2.5.1",
+        "prettier": "^2.6.2",
         "pretty-quick": "^3.1.3",
-        "puppeteer": "^10.4.0",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "webpack": "^5.69.1",
-        "webpack-dev-server": "^4.7.4",
+        "puppeteer": "^14.1.1",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "webpack": "^5.72.1",
+        "webpack-dev-server": "^4.9.0",
         "yalc": "^1.0.0-pre.53"
     },
     "prettier": {
@@ -125,5 +125,6 @@
                 }
             }
         ]
-    }
+    },
+    "packageManager": "yarn@3.2.1"
 }

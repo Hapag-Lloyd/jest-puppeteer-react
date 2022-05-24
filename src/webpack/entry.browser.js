@@ -1,5 +1,4 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
+import { createRoot } from 'react-dom/client';
 
 const search = window.location.search;
 const urlParams = new URLSearchParams(window.location.search);
@@ -11,7 +10,9 @@ if (urlParams.has('test')) {
     const component =
         (window.__tests[testName] || {}).reactNode || React.createElement('div', null, `no component found for test "${testName}"`);
 
-    ReactDOM.render(component, document.getElementById('main'));
+    const container = document.getElementById('main');
+    const root = createRoot(container);
+    root.render(component);
 } else {
     const wrapper = document.getElementById('main') || document.createElement('div');
     wrapper.style.setProperty('display', 'grid');
