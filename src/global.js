@@ -17,12 +17,9 @@ let webpackDevServer;
 
 const getConfig = () => require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
 
-module.exports.setup = async function setup(
-    { noInfo = true, rootDir, testPathPattern, debugOnly = false } = {
-        noInfo: true,
-        debugOnly: false,
-    }
-) {
+module.exports.setup = async function setup(jestConfig) {
+    const { noInfo = true, rootDir, testPathPattern, debugOnly = false } = jestConfig;
+
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
     const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`)).filter((file) => {
@@ -118,10 +115,10 @@ module.exports.setup = async function setup(
     }
 
     debug('setup jest-puppeteer');
-    await setupPuppeteer();
+    await setupPuppeteer(jestConfig);
 };
 
-module.exports.teardown = async function teardown() {
+module.exports.teardown = async function teardown(jestConfig) {
     debug('stopping webpack-dev-server');
     try {
         await webpackDevServer.stop();
@@ -140,5 +137,5 @@ module.exports.teardown = async function teardown() {
     }
 
     debug('teardown jest-puppeteer');
-    await teardownPuppeteer();
+    await teardownPuppeteer(jestConfig);
 };

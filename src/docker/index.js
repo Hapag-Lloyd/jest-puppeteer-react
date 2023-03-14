@@ -10,7 +10,7 @@ const options = {
     env: process.env, // use process.env variables
 };
 
-const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:3.0.74';
+const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:latest';
 
 async function getAvailableBrowserURL(containerId) {
     const inspectResponse = await dockerCommand(
@@ -45,16 +45,16 @@ async function getAvailableBrowserURL(containerId) {
 async function checkUrlAvailability(url) {
     return new Promise((resolve, reject) => {
         const request = http.get(url, () => {
-            request.abort();
+            request.end();
             resolve();
         });
         request.setTimeout(500);
         request.on('error', (error) => {
-            request.abort();
+            request.destroy(error);
             reject(error);
         });
         request.on('timeout', (error) => {
-            request.abort();
+            request.destroy(error);
             reject(error);
         });
     });
