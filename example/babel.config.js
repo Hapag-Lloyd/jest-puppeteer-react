@@ -9,7 +9,7 @@ module.exports = (api) => {
         shippedProposals: true,
         targets: {
             node: 'current',
-            chrome: '72',
+            chrome: '110',
         },
     };
 
