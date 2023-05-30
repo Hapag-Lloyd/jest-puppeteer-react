@@ -1,7 +1,7 @@
 const path = require('path');
-const PuppeteerEnvironment = require('jest-environment-puppeteer');
+const { TestEnvironment } = require('jest-environment-puppeteer');
 
-class PuppeteerReactEnvironment extends PuppeteerEnvironment {
+class PuppeteerReactEnvironment extends TestEnvironment {
     async setup() {
         await super.setup();
 
