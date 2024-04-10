@@ -10,7 +10,7 @@ const options = {
     env: process.env, // use process.env variables
 };
 
-const DEFAULT_DOCKER_IMAGE_NAME = 'elbstack/jest-puppeteer-react:latest';
+const DEFAULT_DOCKER_IMAGE_NAME = 'ghcr.io/puppeteer/puppeteer:latest';
 
 async function getAvailableBrowserURL(containerId) {
     const inspectResponse = await dockerCommand(
