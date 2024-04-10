@@ -75,7 +75,7 @@ module.exports = {
     useDocker: true,
     dockerHost: dockerHost(),
     dockerEntrypoint: '""', // overwrites the default entrypoint of the image
-    dockerRunOptions: '--shm-size=1g',
+    dockerRunOptions: '--ipc=host',
     dockerCommand:
         'google-chrome ' +
         '--no-sandbox ' +

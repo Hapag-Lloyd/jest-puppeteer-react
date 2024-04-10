@@ -8,7 +8,7 @@ const { promisify } = require('util');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const glob = promisify(require('glob'));
+const { glob } = require('glob');
 const docker = require('./docker');
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_react_global_setup');
@@ -22,7 +22,7 @@ module.exports.setup = async function setup(jestConfig) {
 
     // build only files matching testPathPattern
     const testPathPatterRe = new RegExp(testPathPattern, 'i');
-    const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`)).filter((file) => {
+    const testFiles = (await glob(`${rootDir}/**/*.browser.@(js|jsx|ts|tsx)`, { dotRelative: true, posix: true })).filter((file) => {
         if (file.includes('node_modules')) {
             return false;
         }
@@ -40,7 +40,6 @@ module.exports.setup = async function setup(jestConfig) {
         'jest-puppeteer-react': path.resolve(__dirname, 'webpack/render.browser.js'),
     };
 
-    // TODO: document the conventions used here (and in the build / files) in README
     const webpackConfig = config.generateWebpackConfig(entryFiles, aliasObject);
 
     const spinner = ora({ color: 'yellow', stream: process.stdout });
