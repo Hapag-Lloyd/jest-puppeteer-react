@@ -15,7 +15,21 @@ const DIR = path.join(os.tmpdir(), 'jest_puppeteer_react_global_setup');
 
 let webpackDevServer;
 
-const getConfig = () => require(path.join(process.cwd(), 'jest-puppeteer-react.config.js'));
+const getConfig = async () => {
+    const congifName = 'jest-puppeteer-react.config';
+    const statPromisified = promisify(fs.stat);
+
+    let configExt = '.cjs';
+
+    try {
+        await statPromisified(path.join(process.cwd(), `${congifName}${configExt}`));
+    } catch (e) {
+        // Fallback extension if CommonJS module not exist
+        configExt = '.js';
+    }
+
+    return require(path.join(process.cwd(), `${congifName}${configExt}`));
+};
 
 module.exports.setup = async function setup(jestConfig) {
     const { noInfo = true, rootDir, testPathPattern, debugOnly = false } = jestConfig;
@@ -29,7 +43,7 @@ module.exports.setup = async function setup(jestConfig) {
         return testPathPatterRe.test(fs.realpathSync(file));
     });
 
-    const config = getConfig();
+    const config = await getConfig();
 
     const entryFiles = [
         path.resolve(__dirname, 'webpack/globals.browser.js'),
