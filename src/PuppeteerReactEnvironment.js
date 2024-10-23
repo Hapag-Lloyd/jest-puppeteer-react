@@ -1,5 +1,7 @@
 const path = require('path');
 const { TestEnvironment } = require('jest-environment-puppeteer');
+const { promisify } = require('util');
+const fs = require('fs');
 
 class PuppeteerReactEnvironment extends TestEnvironment {
     async setup() {
@@ -7,7 +9,19 @@ class PuppeteerReactEnvironment extends TestEnvironment {
 
         const rootPath = process.cwd(); // of your project under test
 
-        const config = require(path.join(rootPath, 'jest-puppeteer-react.config.js'));
+        const configName = 'jest-puppeteer-react.config';
+        const statPromisified = promisify(fs.stat);
+
+        let configExt = '.cjs';
+
+        try {
+            await statPromisified(path.join(process.cwd(), `${configName}${configExt}`));
+        } catch (e) {
+            // Fallback extension if CommonJS module not exist
+            configExt = '.js';
+        }
+
+        const config = require(path.join(rootPath, `${configName}${configExt}`));
 
         if (!config.port) {
             config.port = 1111;
