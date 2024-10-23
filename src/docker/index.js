@@ -10,7 +10,7 @@ const options = {
     env: process.env, // use process.env variables
 };
 
-const DEFAULT_DOCKER_IMAGE_NAME = 'ghcr.io/puppeteer/puppeteer:latest';
+const DEFAULT_DOCKER_IMAGE_NAME = 'ghcr.io/puppeteer/puppeteer:23.2.2';
 
 async function getAvailableBrowserURL(containerId) {
     const inspectResponse = await dockerCommand(
