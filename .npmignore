@@ -8,3 +8,5 @@ __tests__
 .gitignore
 .editorconfig
 yarn.lock
+.yarn
+.github
